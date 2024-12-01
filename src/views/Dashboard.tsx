@@ -63,7 +63,7 @@ const Dashboard = () => {
         </Card>
       </Grid>
 
-      <Grid item xs={12} sm={6} md={9}>
+      <Grid item xs={12} sm={8} md={9}>
         <Card>
           <CardContent className='flex justify-between'>
             {statCards.map((card, index) => (

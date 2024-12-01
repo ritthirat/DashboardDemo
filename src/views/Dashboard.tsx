@@ -40,11 +40,34 @@ const Dashboard = () => {
   return (
     <Grid container spacing={6}>
       {/* Statistics Cards */}
-      {statCards.map((card, index) => (
-        <Grid item xs={12} sm={6} md={3} key={index}>
-          <Card>
-            <CardContent className='flex justify-between'>
+      <Grid item xs={12} sm={6} md={3}>
+        <Card>
+          <CardContent>
+            <div className='flex'>
               <div>
+                <Typography variant='h6' className='font-medium'>
+                  รายได้ของร้าน
+                </Typography>
+                <Typography variant='h5' className='font-medium mt-6'>
+                  999999
+                </Typography>
+                <Typography variant='h6' className='font-medium mb-8'>
+                  บาท
+                </Typography>
+              </div>
+              <div className='relative pb-0 mb-[-30px] ml-6'>
+                <img src='/images/avatars/2.png ' height={147} />
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </Grid>
+
+      <Grid item xs={12} sm={6} md={9}>
+        <Card>
+          <CardContent className='flex justify-between'>
+            {statCards.map((card, index) => (
+              <div key={index}>
                 <Typography variant='h6' className='font-medium'>
                   {card.title}
                 </Typography>
@@ -55,14 +78,15 @@ const Dashboard = () => {
                   <i className={`${card.icon} me-1`} />
                   {card.trend.amount}
                 </Typography>
+
+                <Avatar variant='rounded' className='bg-primary/10 text-primary' sx={{ width: 44, height: 44 }}>
+                  <i className={card.icon} />
+                </Avatar>
               </div>
-              <Avatar variant='rounded' className='bg-primary/10 text-primary' sx={{ width: 44, height: 44 }}>
-                <i className={card.icon} />
-              </Avatar>
-            </CardContent>
-          </Card>
-        </Grid>
-      ))}
+            ))}
+          </CardContent>
+        </Card>
+      </Grid>
 
       {/* Revenue Chart */}
       <Grid item xs={12} md={8}>

@@ -90,16 +90,6 @@ export const statCards: StatCardData[] = [
       amount: '4.1%',
       color: 'error'
     }
-  },
-  {
-    title: 'Customer Satisfaction',
-    stats: '95.2%',
-    icon: 'tabler-mood-smile',
-    trend: {
-      dir: 'up',
-      amount: '2.4%',
-      color: 'success'
-    }
   }
 ]
 

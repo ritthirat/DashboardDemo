@@ -34,6 +34,7 @@ import themeConfig from '@configs/themeConfig'
 // Hook Imports
 import { useImageVariant } from '@core/hooks/useImageVariant'
 import { useSettings } from '@core/hooks/useSettings'
+import Login from '@/classes/Login.class'
 
 // Styled Custom Components
 const LoginIllustration = styled('img')(({ theme }) => ({
@@ -59,8 +60,12 @@ const MaskImg = styled('img')({
   zIndex: -1
 })
 
+const loginInstance = new Login()
+
 const LoginV2 = ({ mode }: { mode: SystemMode }) => {
   // States
+  const [isUsername, setIsUsername] = useState('')
+  const [isPassword, setIsPassword] = useState('')
   const [isPasswordShown, setIsPasswordShown] = useState(false)
 
   // Vars
@@ -87,6 +92,28 @@ const LoginV2 = ({ mode }: { mode: SystemMode }) => {
   )
 
   const handleClickShowPassword = () => setIsPasswordShown(show => !show)
+
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+
+    try {
+      if (!isUsername || !isPassword) {
+        alert('Please enter username and password')
+
+        return
+      } else {
+        const respose = await loginInstance.login(isUsername, isPassword)
+
+        if (respose.data) {
+          router.push('/')
+        } else if (respose.error) {
+          alert(respose.error)
+        }
+      }
+    } catch (error: any) {
+      console.log(error.response?.data)
+    }
+  }
 
   return (
     <div className='flex bs-full justify-center'>
@@ -121,14 +148,21 @@ const LoginV2 = ({ mode }: { mode: SystemMode }) => {
             autoComplete='off'
             onSubmit={e => {
               e.preventDefault()
-              router.push('/')
+              handleLogin(e)
             }}
             className='flex flex-col gap-5'
           >
-            <CustomTextField autoFocus fullWidth label='Email or Username' placeholder='Enter your email or username' />
+            <CustomTextField
+              autoFocus
+              fullWidth
+              label='Email or Username'
+              onChange={e => setIsUsername(e.target.value)}
+              placeholder='Enter your email or username'
+            />
             <CustomTextField
               fullWidth
               label='Password'
+              onChange={e => setIsPassword(e.target.value)}
               placeholder='············'
               id='outlined-adornment-password'
               type={isPasswordShown ? 'text' : 'password'}

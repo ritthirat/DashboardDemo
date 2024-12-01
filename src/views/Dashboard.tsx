@@ -1,7 +1,6 @@
 'use client'
 
 // React Imports
-import { useState } from 'react'
 
 // MUI Imports
 import Grid from '@mui/material/Grid'
@@ -11,7 +10,6 @@ import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
 import Avatar from '@mui/material/Avatar'
 import LinearProgress from '@mui/material/LinearProgress'
-import IconButton from '@mui/material/IconButton'
 import Chip from '@mui/material/Chip'
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
@@ -24,23 +22,19 @@ import TableRow from '@mui/material/TableRow'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
 
 // Mock Data Import
-import {
-  statCards,
-  revenueData,
-  recentTransactions,
-  projects,
-  recentActivity
-} from '@/data/mock/dashboardData'
+import { statCards, revenueData, recentTransactions, projects, recentActivity } from '@/data/mock/dashboardData'
 
 // Import icons CSS
 import '@/assets/iconify-icons/generated-icons.css'
 
 // Prepare chart data
-const chartData = Array(12).fill(0).map((_, index) => ({
-  name: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][index],
-  revenue: revenueData.series[0].data[index],
-  profit: revenueData.series[1].data[index]
-}))
+const chartData = Array(12)
+  .fill(0)
+  .map((_, index) => ({
+    name: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][index],
+    revenue: revenueData.series[0].data[index],
+    profit: revenueData.series[1].data[index]
+  }))
 
 const Dashboard = () => {
   return (
@@ -62,11 +56,7 @@ const Dashboard = () => {
                   {card.trend.amount}
                 </Typography>
               </div>
-              <Avatar
-                variant='rounded'
-                className='bg-primary/10 text-primary'
-                sx={{ width: 44, height: 44 }}
-              >
+              <Avatar variant='rounded' className='bg-primary/10 text-primary' sx={{ width: 44, height: 44 }}>
                 <i className={card.icon} />
               </Avatar>
             </CardContent>
@@ -88,24 +78,24 @@ const Dashboard = () => {
           />
           <CardContent>
             <div style={{ height: '400px' }}>
-              <ResponsiveContainer width="100%" height="100%">
+              <ResponsiveContainer width='100%' height='100%'>
                 <LineChart data={chartData} margin={{ top: 20, right: 30, left: 20, bottom: 10 }}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="name" />
+                  <CartesianGrid strokeDasharray='3 3' />
+                  <XAxis dataKey='name' />
                   <YAxis />
                   <Tooltip />
                   <Line
-                    type="monotone"
-                    dataKey="revenue"
-                    stroke="#7367F0"
+                    type='monotone'
+                    dataKey='revenue'
+                    stroke='#7367F0'
                     strokeWidth={2}
                     dot={{ r: 4 }}
                     activeDot={{ r: 6 }}
                   />
                   <Line
-                    type="monotone"
-                    dataKey="profit"
-                    stroke="#28C76F"
+                    type='monotone'
+                    dataKey='profit'
+                    stroke='#28C76F'
                     strokeWidth={2}
                     dot={{ r: 4 }}
                     activeDot={{ r: 6 }}
@@ -131,11 +121,8 @@ const Dashboard = () => {
                     {activity.time}
                   </Typography>
                   {activity.meta?.comment && (
-                    <Typography
-                      variant='body2'
-                      className='text-textSecondary bg-action-hover rounded p-2 mbs-2'
-                    >
-                      "{activity.meta.comment}"
+                    <Typography variant='body2' className='text-textSecondary bg-action-hover rounded p-2 mbs-2'>
+                      {activity.meta.comment}
                     </Typography>
                   )}
                 </div>
@@ -169,9 +156,7 @@ const Dashboard = () => {
                           sx={{ width: 34, height: 34 }}
                         />
                         <div>
-                          <Typography variant='body2'>
-                            {transaction.client.name}
-                          </Typography>
+                          <Typography variant='body2'>{transaction.client.name}</Typography>
                           <Typography variant='caption' className='text-textSecondary'>
                             {transaction.client.company}
                           </Typography>
@@ -194,8 +179,8 @@ const Dashboard = () => {
                           transaction.status === 'confirmed'
                             ? 'success'
                             : transaction.status === 'pending'
-                            ? 'warning'
-                            : 'error'
+                              ? 'warning'
+                              : 'error'
                         }
                       />
                     </TableCell>
@@ -225,11 +210,7 @@ const Dashboard = () => {
                     size='small'
                     label={project.status}
                     color={
-                      project.status === 'completed'
-                        ? 'success'
-                        : project.status === 'active'
-                        ? 'primary'
-                        : 'error'
+                      project.status === 'completed' ? 'success' : project.status === 'active' ? 'primary' : 'error'
                     }
                   />
                 </div>
@@ -249,13 +230,7 @@ const Dashboard = () => {
                 <LinearProgress
                   variant='determinate'
                   value={project.progress}
-                  color={
-                    project.status === 'completed'
-                      ? 'success'
-                      : project.status === 'active'
-                      ? 'primary'
-                      : 'error'
-                  }
+                  color={project.status === 'completed' ? 'success' : project.status === 'active' ? 'primary' : 'error'}
                 />
               </div>
             ))}

@@ -23,6 +23,7 @@ import Button from '@mui/material/Button'
 
 // Hook Imports
 import { useSettings } from '@core/hooks/useSettings'
+import instance from '@/plugins/instance'
 
 // Styled component for badge content
 const BadgeContentSpan = styled('span')({
@@ -64,6 +65,7 @@ const UserDropdown = () => {
 
   const handleUserLogout = async () => {
     // Redirect to login page
+    instance.removeToken()
     router.push('/login')
   }
 

@@ -17,12 +17,20 @@ import TableCell from '@mui/material/TableCell'
 import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
+import { Button } from '@mui/material'
 
 // Recharts Imports
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
 
 // Mock Data Import
-import { statCards, revenueData, recentTransactions, projects, recentActivity } from '@/data/mock/dashboardData'
+import {
+  statCards,
+  revenueData,
+  recentTransactions,
+  projects,
+  recentActivity,
+  tipData
+} from '@/data/mock/dashboardData'
 
 // Import icons CSS
 import '@/assets/iconify-icons/generated-icons.css'
@@ -39,24 +47,39 @@ const chartData = Array(12)
 const Dashboard = () => {
   return (
     <Grid container spacing={6}>
+      <Grid item xs={12} className='flex justify-end gap-2'>
+        <Button variant='outlined'>
+          <Typography variant='h5'>1 วันล่าสุด</Typography>
+        </Button>
+        <Button variant='outlined'>
+          <Typography variant='h5'>7 วันล่าสุด</Typography>
+        </Button>
+        <Button variant='outlined'>
+          <Typography variant='h5'>30 วันล่าสุด </Typography>
+        </Button>
+        <Button variant='outlined'>
+          <Typography variant='h5'>กำหนดเอง </Typography>
+        </Button>
+      </Grid>
+
       {/* Statistics Cards */}
       <Grid item xs={12} sm={6} md={3}>
         <Card>
           <CardContent>
             <div className='flex'>
               <div>
-                <Typography variant='h6' className='font-medium'>
+                <Typography variant='h5' className='font-medium'>
                   รายได้ของร้าน
                 </Typography>
-                <Typography variant='h5' className='font-medium mt-6'>
+                <Typography variant='h4' className='font-medium mt-6 text-primary'>
                   999999
                 </Typography>
-                <Typography variant='h6' className='font-medium mb-8'>
+                <Typography variant='h6' className='font-medium'>
                   บาท
                 </Typography>
               </div>
-              <div className='relative pb-0 mb-[-30px] ml-6'>
-                <img src='/images/avatars/2.png ' height={147} />
+              <div className='relative pb-0 -mb-8 ml-6'>
+                <img src='/images/avatars/2.png' alt='Man' height={147} />
               </div>
             </div>
           </CardContent>
@@ -65,34 +88,97 @@ const Dashboard = () => {
 
       <Grid item xs={12} sm={8} md={9}>
         <Card>
-          <CardContent className='flex justify-between'>
+          <CardHeader title='ภาพรวมการขาย' />
+          <CardContent className='flex justify-between mb-5 flex-wrap'>
             {statCards.map((card, index) => (
               <div key={index}>
-                <Typography variant='h6' className='font-medium'>
-                  {card.title}
-                </Typography>
-                <Typography variant='h5' className='font-medium mbs-2'>
-                  {card.stats}
-                </Typography>
-                <Typography variant='body2' className={`text-${card.trend.color}`}>
-                  <i className={`${card.icon} me-1`} />
-                  {card.trend.amount}
-                </Typography>
-
-                <Avatar variant='rounded' className='bg-primary/10 text-primary' sx={{ width: 44, height: 44 }}>
-                  <i className={card.icon} />
-                </Avatar>
+                <div className=' flex gap-2'>
+                  <Avatar variant='rounded' className='bg-primary/10 text-primary' sx={{ width: 44, height: 44 }}>
+                    <i className={card.icon} />
+                  </Avatar>
+                  <div className='flex flex-col'>
+                    <Typography variant='h5' className='font-medium'>
+                      {card.total}
+                    </Typography>
+                    <Typography variant='h6' className='font-medium'>
+                      {card.title}
+                    </Typography>
+                  </div>
+                </div>
               </div>
             ))}
           </CardContent>
         </Card>
       </Grid>
 
+      <Grid item xs={12} sm={6} md={6}>
+        <div className='flex flex-wrap gap-4'>
+          {/* Card 1 */}
+          {tipData.map((tip, index) => (
+            <Card key={index} className='w-full lg:w-[calc(50%-0.5rem)] '>
+              <CardHeader
+                className='pb-2'
+                title={tip.title}
+                action={
+                  <Avatar variant='rounded' className='bg-green-500/40 text-green-700' sx={{ width: 35, height: 35 }}>
+                    <i className={tip.icons} />
+                  </Avatar>
+                }
+              />
+              <CardContent>
+                <Typography variant='h6' className='font-medium'>
+                  รายได้ทั้งหมด
+                </Typography>
+                <Typography variant='h5' className='font-medium'>
+                  {tip.total} บาท
+                </Typography>
+                <Typography variant='h5'>จำนวน {tip.items} รายการ</Typography>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </Grid>
+
+      <Grid item xs={12} sm={6} md={6}>
+        <Card>
+          <CardHeader title='ยอดขายตามประเภทการชำระเงิน' />
+          <CardContent>
+            {/* PromptPay Section */}
+            <div className='flex justify-between items-center text-lg mb-2 '>
+              <Typography variant='h6'>PromptPay ( พร้อมเพลย์ )</Typography>
+              <span className='bg-green-500 text-white px-2 rounded'>9999999 บาท</span>
+            </div>
+            <div className='flex justify-between items-center text-sm mb-2'>
+              <Typography>ทั้งหมด 119 รายการ</Typography>
+              <span className='px-2 rounded'>99%</span>
+            </div>
+            <LinearProgress variant='determinate' value={99} className='h-4 rounded-md' color='primary' />
+            {/* TrueMoney Section */}
+            <div className='flex justify-between items-center text-lg mb-2 mt-4'>
+              <Typography variant='h6'>TrueMoney Wallet ( ทรูมันนี่วอเลท )</Typography>
+              <span className='bg-green-500 text-white px-2 rounded'>99 บาท</span>
+            </div>
+            <div className='flex justify-between items-center text-sm mb-2'>
+              <Typography>ทั้งหมด 1 รายการ</Typography>
+              <span className='px-2 rounded'>1%</span>
+            </div>
+            <LinearProgress variant='determinate' value={2} className='h-4 rounded-md' color='error' />
+            {/* Divider */}
+            <div className='border-t border-gray-300 my-4'></div>
+            {/* Summary Section */}
+            <div className='flex justify-between items-center text-lg mt-4 mb-3'>
+              <Typography variant='h5'>รวมทั้งหมด</Typography>
+              <Typography variant='h5'>999999 บาท</Typography>
+            </div>
+          </CardContent>
+        </Card>
+      </Grid>
+
       {/* Revenue Chart */}
-      <Grid item xs={12} md={8}>
+      <Grid item xs={12} md={12}>
         <Card>
           <CardHeader
-            title='Revenue Overview'
+            title='ยอดขาย'
             subheader={`Total ${revenueData.amount} revenue this month`}
             action={
               <Typography variant='body2' className='text-success'>

@@ -1,13 +1,8 @@
 // Types for dashboard data
 export type StatCardData = {
   title: string
-  stats: string | number
+  total: string | number
   icon: string
-  trend: {
-    dir: 'up' | 'down'
-    amount: string
-    color: 'success' | 'error'
-  }
 }
 
 export type RevenueData = {
@@ -59,37 +54,40 @@ export type ActivityData = {
   }
 }
 
+export type TipData = {
+  id: number
+  title: string
+  icons: string
+  total: number
+  items: number
+}
+
+export type ReportCustomerByDay = {
+  day: string
+  total: number
+}
+
 // Mock data for statistics cards
 export const statCards: StatCardData[] = [
   {
-    title: 'Total Revenue',
-    stats: '$48.2k',
-    icon: 'tabler-currency-dollar',
-    trend: {
-      dir: 'up',
-      amount: '8.2%',
-      color: 'success'
-    }
+    title: 'ยอดขาย',
+    total: '$48.2k',
+    icon: 'tabler-currency-dollar'
   },
   {
-    title: 'New Customers',
-    stats: '2,856',
-    icon: 'tabler-users',
-    trend: {
-      dir: 'up',
-      amount: '12.5%',
-      color: 'success'
-    }
+    title: 'ยอดขายต่ำสุด',
+    total: '2,856',
+    icon: 'tabler-ticket'
   },
   {
-    title: 'Active Projects',
-    stats: '86',
-    icon: 'tabler-briefcase',
-    trend: {
-      dir: 'down',
-      amount: '4.1%',
-      color: 'error'
-    }
+    title: 'ยอดขายสูงสุด',
+    total: '86',
+    icon: 'tabler-credit-card'
+  },
+  {
+    title: 'การทำรายการ',
+    total: '86',
+    icon: 'tabler-chart-pie-2'
   }
 ]
 
@@ -249,4 +247,45 @@ export const recentActivity: ActivityData[] = [
       avatar: '/images/avatars/4.png'
     }
   }
+]
+
+export const tipData: TipData[] = [
+  {
+    id: 1,
+    title: 'ส่งรูปขึ้นจอ',
+    icons: 'tabler-plane',
+    total: 999999,
+    items: 105
+  },
+  {
+    id: 2,
+    title: 'ส่งวิดีโอขึ้นจอ',
+    icons: 'tabler-plane',
+    total: 888888,
+    items: 2
+  },
+  {
+    id: 3,
+    title: 'ส่งข้องความขึ้นจอ',
+    icons: 'tabler-plane',
+    total: 400000,
+    items: 109
+  },
+  {
+    id: 4,
+    title: 'ส่งทิป',
+    icons: 'tabler-plane',
+    total: 4564654,
+    items: 250
+  }
+]
+
+export const reportCustomerByDay: ReportCustomerByDay[] = [
+  { day: 'วันจันทร์', total: 10 },
+  { day: 'วันอังคาร', total: 5 },
+  { day: 'วันพุธ', total: 8 },
+  { day: 'วันพฤหัสบดี', total: 12 },
+  { day: 'วันศุกร์', total: 15 },
+  { day: 'วันเสาร์', total: 500 },
+  { day: 'วันอาทิตย์', total: 18 }
 ]

@@ -1,0 +1,66 @@
+/* Overlay - เพื่อให้พื้นหลังมืด */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 9998;
+  transition: background-color 0.3s ease;
+}
+
+.modal-overlay.show {
+  display: flex;
+}
+
+/* Customizer Modal */
+.side-modal {
+  position: fixed;
+  inset-block-start: 0;
+  inset-inline-end: -400px;
+  block-size: 100%;
+  inline-size: 400px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  transition: inset-inline-end 0.3s ease-in-out;
+  z-index: 9999;
+  padding: 16px;
+  box-shadow: var(--mui-customShadows-xl);
+}
+
+.side-modal.show {
+  inset-inline-end: 0 !important;
+}
+
+.side-modal.smallScreen {
+  inline-size: 375px;
+  inset-inline-end: -375px;
+}
+
+.side-modal.smallScreen.show .toggler {
+  display: none;
+}
+
+.side-modal .header {
+  margin-block-end: 16px;
+}
+
+.side-modal .customizerBody {
+  flex: 1;
+  overflow-y: auto;
+}
+
+/* Toggler button */
+.toggler {
+  position: fixed;
+  inset-block-end: 20px;
+  inset-inline-end: 20px;
+  padding: 12px;
+  background-color: var(--primary-color);
+  color: white;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 10000;
+}

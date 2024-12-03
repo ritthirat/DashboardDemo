@@ -1,0 +1,57 @@
+import React, { useState, useEffect } from 'react'
+
+import './SideModal.css'
+
+interface DynamicModalProps {
+  isOpen: boolean
+  title: string
+  toggleModal: () => void
+  children: React.ReactNode
+}
+
+const DynamicModal = ({ isOpen, title, toggleModal, children }: DynamicModalProps) => {
+  // const [isOpen, setIsOpen] = useState(false)
+  const [isSmallScreen, setIsSmallScreen] = useState(false)
+
+  // ตรวจสอบขนาดหน้าจอ (responsive)
+  useEffect(() => {
+    const handleResize = () => {
+      setIsSmallScreen(window.innerWidth <= 768) // ขนาดหน้าจอเล็ก (มือถือ)
+    }
+
+    window.addEventListener('resize', handleResize)
+
+    handleResize() // ตรวจสอบขนาดหน้าจอในครั้งแรก
+
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
+  // const toggleModal = () => {
+  //   setIsOpen(prev => !prev)
+  // }
+
+  return (
+    <>
+      {/* Backdrop Overlay */}
+      <div className={`modal-overlay ${isOpen ? 'show' : ''}`} onClick={toggleModal} />
+
+      {/* Modal Customizer */}
+      <div className={`side-modal ${isOpen ? 'show' : ''} ${isSmallScreen ? 'smallScreen' : ''}`}>
+        <div className='modal-header flex justify-between'>
+          <h2>{title}</h2>
+          <button
+            onClick={toggleModal}
+            className='absolute top-4 right-4 p-2  bg-transparent rounded-full hover:bg-gray-300'
+          >
+            <i className='tabler-x' />
+          </button>
+        </div>
+        {children}
+      </div>
+
+      {/* Toggler button */}
+    </>
+  )
+}
+
+export default DynamicModal

@@ -67,6 +67,14 @@ export type ReportCustomerByDay = {
   total: number
 }
 
+export type HistoryList = {
+  id: number
+  date: Date
+  status: string
+  time: Date
+  createDate: Date
+}
+
 // Mock data for statistics cards
 export const statCards: StatCardData[] = [
   {
@@ -288,4 +296,35 @@ export const reportCustomerByDay: ReportCustomerByDay[] = [
   { day: 'วันศุกร์', total: 15 },
   { day: 'วันเสาร์', total: 500 },
   { day: 'วันอาทิตย์', total: 18 }
+]
+
+export const historylist: HistoryList[] = [
+  {
+    id: 1,
+    date: new Date(),
+    status: 'success',
+    time: new Date(),
+    createDate: new Date()
+  },
+  {
+    id: 2,
+    date: new Date(),
+    status: 'failed',
+    time: new Date(),
+    createDate: new Date()
+  },
+  {
+    id: 3,
+    date: new Date(),
+    status: 'success',
+    time: new Date(),
+    createDate: new Date()
+  },
+  {
+    id: 4,
+    date: new Date(),
+    status: 'success',
+    time: new Date(),
+    createDate: new Date()
+  }
 ]

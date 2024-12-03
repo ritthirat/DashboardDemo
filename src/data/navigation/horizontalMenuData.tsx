@@ -19,7 +19,7 @@ const horizontalMenuData = (): HorizontalMenuDataType[] => [
   },
   {
     label: 'ประวัติการใช้งาน',
-    href: '/dashboard',
+    href: '/history',
     icon: 'tabler-file-chart'
   },
   {

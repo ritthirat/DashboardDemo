@@ -4,37 +4,15 @@ import { Avatar, Button, Card, CardContent, CardHeader, Grid, Typography } from 
 
 import { useTheme } from '@mui/material/styles'
 
-import {
-  Bar,
-  BarChart,
-  CartesianGrid,
-  Cell,
-  LabelList,
-  Line,
-  LineChart,
-  ResponsiveContainer,
-  Tooltip,
-  XAxis,
-  YAxis
-} from 'recharts'
+import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
 
 import { reportCustomerByDay, revenueData } from '@/data/mock/dashboardData'
+import CustomerBarChart from '@/components/CustomerBarChart'
+import ChartData from '@/classes/chart.class'
 
-const chartData = reportCustomerByDay.map(item => ({
-  name: item.day,
-  total: item.total // กำหนดค่า total เป็น revenue// ตัวอย่างการคำนวณ profit
-}))
+const chartData = ChartData.generateCustomerByDay(reportCustomerByDay)
 
-const totalSum = reportCustomerByDay.reduce((acc, item) => acc + item.total, 0)
-const average = totalSum / reportCustomerByDay.length
-
-const chartRevenueData = Array(12)
-  .fill(0)
-  .map((_, index) => ({
-    name: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][index],
-    revenue: revenueData.series[0].data[index],
-    profit: revenueData.series[1].data[index]
-  }))
+const chartRevenueData = ChartData.generateRevenueData(revenueData)
 
 const Statistics = () => {
   const themeColor = useTheme()
@@ -89,32 +67,16 @@ const Statistics = () => {
           </Card>
         </div>
       </Grid>
+
       <Grid item xs={12} sm={12} md={8}>
         <Card>
-          <CardHeader
-            title='รายงานลูกค้าตามวัน'
-            action={<Typography>จำนวนลูกค้าเฉลี่ย: {average.toFixed(2)} คน</Typography>}
-          />
+          <CardHeader title='รายงายลูกค้า' />
           <CardContent>
-            <div style={{ height: '400px' }}>
-              <ResponsiveContainer width='100%' height='100%'>
-                <BarChart data={chartData}>
-                  <CartesianGrid strokeDasharray='3 3' />
-                  <XAxis dataKey='name' />
-                  <YAxis />
-                  <Tooltip />
-                  <Bar dataKey='total' fill={themeColor.palette.primary.main} radius={[4, 4, 0, 0]} barSize={50}>
-                    {chartData.map((entry, index) => (
-                      <Cell key={index} fill={entry.total > 0 ? themeColor.palette.primary.main : '#E53935'} />
-                    ))}
-                    <LabelList dataKey='total' position='top' formatter={(value: number) => `${value} คน`} />
-                  </Bar>
-                </BarChart>
-              </ResponsiveContainer>
-            </div>
+            <CustomerBarChart data={chartData} themeColor={themeColor} />
           </CardContent>
         </Card>
       </Grid>
+
       <Grid item xs={12} className='flex justify-end gap-2'>
         <Button variant='outlined'>
           <Typography variant='h5'>1 วันล่าสุด</Typography>
@@ -129,6 +91,7 @@ const Statistics = () => {
           <Typography variant='h5'>กำหนดเอง </Typography>
         </Button>
       </Grid>
+
       <Grid item xs={12} sm={6} md={4}>
         <Card>
           <CardContent>
@@ -151,6 +114,7 @@ const Statistics = () => {
           </CardContent>
         </Card>
       </Grid>
+
       <Grid item xs={12} sm={6} md={4}>
         <Card>
           <CardContent>
@@ -173,6 +137,7 @@ const Statistics = () => {
           </CardContent>
         </Card>
       </Grid>
+
       <Grid item xs={12} sm={6} md={4}>
         <Card>
           <CardContent>
@@ -195,6 +160,7 @@ const Statistics = () => {
           </CardContent>
         </Card>
       </Grid>
+
       <Grid item xs={12} sm={12} md={12}>
         <Card>
           <CardContent>

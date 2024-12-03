@@ -37,7 +37,7 @@ const DynamicModal = ({ isOpen, title, toggleModal, children }: DynamicModalProp
 
       {/* Modal Customizer */}
       <div className={`side-modal ${isOpen ? 'show' : ''} ${isSmallScreen ? 'smallScreen' : ''}`}>
-        <div className='modal-header flex justify-between'>
+        <div className='modal-header flex justify-between mb-10'>
           <h2>{title}</h2>
           <button
             onClick={toggleModal}

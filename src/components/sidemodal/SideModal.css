@@ -18,9 +18,9 @@
 .side-modal {
   position: fixed;
   inset-block-start: 0;
-  inset-inline-end: -400px;
+  inset-inline-end: -720px;
   block-size: 100%;
-  inline-size: 400px;
+  inline-size: 720px;
   background-color: white;
   display: flex;
   flex-direction: column;

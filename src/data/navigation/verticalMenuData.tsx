@@ -24,7 +24,7 @@ const verticalMenuData = (): VerticalMenuDataType[] => [
   },
   {
     label: 'ตั้งค่า',
-    href: '/dashboard',
+    href: '/setting-page',
     icon: 'tabler-settings'
   },
   {

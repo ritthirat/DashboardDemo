@@ -1,25 +1,14 @@
 'use client'
 import { useState } from 'react'
 
-import {
-  Button,
-  Card,
-  CardContent,
-  CardHeader,
-  Chip,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Typography
-} from '@mui/material'
+import { Button, Card, CardContent, CardHeader, Chip, Typography } from '@mui/material'
 
 import { historylist } from '@/data/mock/dashboardData'
+import type { HistoryList } from '@/data/mock/dashboardData'
 
 import HistoryDetailModal from '@/components/็HistoryDetailModal'
 import { formattedDate } from '@/utils/formate'
+import DynamicTable from '@/components/table/DyamicTable'
 
 const History = () => {
   const [isOpen, setIsOpen] = useState(false)
@@ -28,75 +17,57 @@ const History = () => {
     setIsOpen(prev => !prev)
   }
 
-  const historyListdata = historylist
+  const columns = [
+    {
+      id: 'date' as keyof HistoryList,
+      label: 'วันที่',
+      render: (data: HistoryList) => <Typography variant='body2'>{formattedDate(data.date)}</Typography>
+    },
+    {
+      id: 'status' as keyof HistoryList,
+      label: 'สถานะ',
+      align: 'center' as const,
+      render: (data: HistoryList) => (
+        <Chip
+          size='small'
+          label={data.status}
+          color={data.status === 'success' ? 'success' : data.status === 'pending' ? 'warning' : 'error'}
+        />
+      )
+    },
+    {
+      id: 'createDate' as keyof HistoryList,
+      label: 'สร้างเมื่อ',
+      align: 'center' as const,
+      render: (data: HistoryList) => <Typography variant='body2'>{formattedDate(data.createDate)}</Typography>
+    },
+    {
+      id: 'actions' as keyof HistoryList,
+      label: 'จัดการ',
+      align: 'center' as const,
+      sx: { width: '500px' },
+      render: () => (
+        <div className='flex justify-center gap-2 text-nowrap'>
+          <Button variant='outlined' size='small' color='primary' onClick={toggleModal}>
+            ดูรายงาน
+          </Button>
+          <Button variant='outlined' size='small' color='primary'>
+            ดาวโหลดรายงาน
+          </Button>
+          <Button variant='outlined' size='small' color='primary'>
+            สลิปโอนเงิน
+          </Button>
+        </div>
+      )
+    }
+  ]
 
   return (
     <div>
       <Card>
         <CardHeader title='History' />
         <CardContent>
-          <TableContainer>
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell>วันที่</TableCell>
-                  <TableCell align='center'>สถานะ</TableCell>
-                  <TableCell align='center' className='text-nowrap'>
-                    เวลาจ่าย
-                  </TableCell>
-                  <TableCell align='center'>สร้างเมื่อ</TableCell>
-                  <TableCell align='center'>จัดการ</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {historyListdata.map(transaction => (
-                  <TableRow key={transaction.id}>
-                    <TableCell>
-                      <Typography variant='body2'>{formattedDate(transaction.date)}</Typography>
-                    </TableCell>
-                    <TableCell align='center'>
-                      <Chip
-                        size='small'
-                        label={transaction.status}
-                        color={
-                          transaction.status === 'success'
-                            ? 'success'
-                            : transaction.status === 'pending'
-                              ? 'warning'
-                              : 'error'
-                        }
-                      />
-                    </TableCell>
-                    <TableCell align='center' className='text-nowrap'>
-                      <Typography variant='body2'>sa</Typography>
-                    </TableCell>
-                    <TableCell align='center'>
-                      <Typography variant='body2'>{formattedDate(transaction.createDate)}</Typography>
-                    </TableCell>
-                    <TableCell align='center'>
-                      <div className='flex justify-center  gap-2 '>
-                        <Button
-                          variant='outlined'
-                          size='small'
-                          color='primary'
-                          onClick={toggleModal}
-                          className='text-nowrap'
-                        >
-                          ดูรายงาน
-                        </Button>
-                        <Button variant='outlined' size='small' color='primary' className='text-nowrap'>
-                          ดาวโหลดรายงาน
-                        </Button>
-                        <Button variant='outlined' size='small' color='primary' className='text-nowrap'>
-                          สลิปโอนเงิน
-                        </Button>
-                      </div>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
+          <DynamicTable columns={columns} data={historylist} />
         </CardContent>
       </Card>
       <HistoryDetailModal isOpen={isOpen} toggleModal={toggleModal} />

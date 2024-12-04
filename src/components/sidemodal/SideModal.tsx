@@ -46,7 +46,9 @@ const DynamicModal = ({ isOpen, title, toggleModal, children }: DynamicModalProp
             <i className='tabler-x' />
           </button>
         </div>
-        {children}
+        <div className='relative overflow-y-auto' style={{ maxHeight: 'calc(100vh - 10rem)' }}>
+          {children}
+        </div>
       </div>
 
       {/* Toggler button */}

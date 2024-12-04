@@ -24,7 +24,11 @@ const horizontalMenuData = (): HorizontalMenuDataType[] => [
   },
   {
     label: 'ตั้งค่า',
-    href: '/dashboard',
+    children: [
+      { label: 'ข้อความ ', href: '/message-page' },
+      { label: 'โดเนท', href: '/donate' },
+      { label: 'ปรับแต่งหน้าจอ', href: '/customscreen' }
+    ],
     icon: 'tabler-settings'
   },
   {

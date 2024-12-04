@@ -21,7 +21,7 @@
   inset-inline-end: -720px;
   block-size: 100%;
   inline-size: 720px;
-  background-color: white;
+  background-color: var(--mui-palette-background-default);
   display: flex;
   flex-direction: column;
   transition: inset-inline-end 0.3s ease-in-out;

@@ -1,9 +1,9 @@
-import Setting from '@/views/Setting'
+import MessageSetting from '@/views/MessageSetting'
 
 const Page = () => {
   return (
     <div className='p-6'>
-      <Setting />
+      <MessageSetting />
     </div>
   )
 }

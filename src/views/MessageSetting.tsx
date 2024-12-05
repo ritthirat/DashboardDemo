@@ -1,6 +1,10 @@
+'use client'
+import { useState } from 'react'
+
 import { Button, Card, CardContent, CardHeader, Typography } from '@mui/material'
 
 import DynamicTable from '@/components/table/DyamicTable'
+import MessageModal from '@/components/MessageModal'
 
 interface SettingData {
   id: number
@@ -9,7 +13,13 @@ interface SettingData {
   lastUpdate: string
 }
 
-const Setting = () => {
+const MessageSetting = () => {
+  const [isOpen, setIsOpen] = useState(false)
+
+  const toggleModal = () => {
+    setIsOpen(prev => !prev)
+  }
+
   const data: SettingData[] = [
     {
       id: 1,
@@ -60,20 +70,23 @@ const Setting = () => {
   ]
 
   return (
-    <Card>
-      <CardHeader
-        title='ข้อความ'
-        action={
-          <Button variant='contained' color='warning'>
-            เพิ่มข้อความ
-          </Button>
-        }
-      />
-      <CardContent>
-        <DynamicTable columns={columns} data={data} />
-      </CardContent>
-    </Card>
+    <div>
+      <Card>
+        <CardHeader
+          title='ข้อความ'
+          action={
+            <Button variant='contained' color='primary' onClick={toggleModal}>
+              เพิ่มข้อความ
+            </Button>
+          }
+        />
+        <CardContent>
+          <DynamicTable columns={columns} data={data} />
+        </CardContent>
+      </Card>
+      <MessageModal isOpen={isOpen} toggleModal={toggleModal} />
+    </div>
   )
 }
 
-export default Setting
+export default MessageSetting

@@ -29,7 +29,7 @@ const TextFieldStyled = styled(TextField)<TextFieldProps>(({ theme }) => ({
     }
   },
   '& .MuiInputBase-root': {
-    backgroundColor: 'transparent !important',
+    backgroundColor: 'var(--mui-palette-background-paper)',
     border: `1px solid var(--mui-palette-customColors-inputBorder)`,
     '&:not(.Mui-focused):not(.Mui-disabled):not(.Mui-error):hover': {
       borderColor: 'var(--mui-palette-action-active)'

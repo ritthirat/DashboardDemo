@@ -33,7 +33,13 @@ const DynamicTable = <T,>({ columns, data }: DynamicTableProps<T>) => {
             <TableRow key={rowIndex}>
               {columns.map(col => (
                 <TableCell key={col.id as string} align={col.align || 'left'}>
-                  {col.render ? col.render(row) : (row[col.id] as React.ReactNode)}
+                  {col.render
+                    ? col.render(row)
+                    : typeof row[col.id] === 'boolean'
+                      ? row[col.id]
+                        ? 'Active'
+                        : 'Inactive'
+                      : (row[col.id] as React.ReactNode)}
                 </TableCell>
               ))}
             </TableRow>

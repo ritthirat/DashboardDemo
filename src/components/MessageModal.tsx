@@ -24,16 +24,8 @@ const MessageModal = ({ isOpen, toggleModal }: Props) => {
       <Grid container spacing={2}>
         <Grid item xs={12} md={12} lg={12}>
           <div className='flex flex-col gap-2'>
-            <Card>
-              <CardContent className='p-0'>
-                <CustomTextField autoFocus fullWidth placeholder='เพิ่มข้อความ' />
-              </CardContent>
-            </Card>
-            <Card>
-              <CardContent className='p-0'>
-                <CustomTextField fullWidth placeholder='รายละเอียด' />
-              </CardContent>
-            </Card>
+            <CustomTextField autoFocus fullWidth placeholder='เพิ่มข้อความ' />
+            <CustomTextField fullWidth placeholder='รายละเอียด' />
           </div>
         </Grid>
         <Grid item xs={12} md={4} lg={4} className='my-4 '>
@@ -59,11 +51,8 @@ const MessageModal = ({ isOpen, toggleModal }: Props) => {
         </Grid>
         <Grid item xs={12} md={8} lg={8}>
           <div className='flex'>
-            <Card className='w-full'>
-              <CardContent className='p-0'>
-                <CustomTextField fullWidth placeholder='เพิ่มหมวดหมู่' />
-              </CardContent>
-            </Card>
+            <CustomTextField fullWidth placeholder='เพิ่มหมวดหมู่' />
+
             <Button variant='contained' className=''>
               บันทึก
             </Button>
@@ -73,11 +62,8 @@ const MessageModal = ({ isOpen, toggleModal }: Props) => {
             แก้ไขชื่อหมวดหมู่
           </Typography>
           <div className='flex'>
-            <Card className='w-full'>
-              <CardContent className='p-0 '>
-                <CustomTextField autoFocus fullWidth placeholder='เพิ่มข้อความ' />
-              </CardContent>
-            </Card>
+            <CustomTextField autoFocus fullWidth placeholder='เพิ่มข้อความ' />
+
             <Avatar
               variant='rounded'
               className='bg-transparent text-error hover:bg-gray-200'
@@ -90,11 +76,8 @@ const MessageModal = ({ isOpen, toggleModal }: Props) => {
             เพิ่มข้อความใหม่
           </Typography>
           <div className='flex'>
-            <Card className='w-full'>
-              <CardContent className='p-0 '>
-                <CustomTextField autoFocus fullWidth placeholder='เพิ่มข้อความ' />
-              </CardContent>
-            </Card>
+            <CustomTextField autoFocus fullWidth placeholder='เพิ่มข้อความ' />
+
             <Button variant='contained' className='text-nowrap' color='primary'>
               เพิ่มข้อความ
             </Button>
@@ -167,17 +150,6 @@ const MessageModal = ({ isOpen, toggleModal }: Props) => {
             </CardContent>
           </Card>
         </Grid>
-      </Grid>
-
-      <Grid item xs={12} md={12} lg={12} className='mt-4'>
-        <div className='flex gap-2 w-full'>
-          <Button variant='contained' size='small' className='rounded-xl w-full' color='primary'>
-            บันทึก
-          </Button>
-          <Button variant='outlined' size='small' className='rounded-xl w-full' onClick={toggleModal}>
-            ยกเลิก
-          </Button>
-        </div>
       </Grid>
     </DynamicModal>
   )

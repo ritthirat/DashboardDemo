@@ -39,17 +39,17 @@ const MessageSetting = () => {
     {
       id: 'name' as keyof SettingData,
       label: 'ชื่อ',
-      runder: (data: SettingData) => <Typography variant='body2'>{data.name}</Typography>
+      render: (data: SettingData) => <Typography variant='body2'>{data.name}</Typography>
     },
     {
       id: 'description' as keyof SettingData,
       label: 'รายละเอียด',
-      runder: (data: SettingData) => <Typography variant='body2'>{data.description}</Typography>
+      render: (data: SettingData) => <Typography variant='body2'>{data.description}</Typography>
     },
     {
       id: 'lastUpdate' as keyof SettingData,
       label: 'อัพเดทล่าสุด',
-      runder: (data: SettingData) => <Typography variant='body2'>{data.lastUpdate}</Typography>
+      render: (data: SettingData) => <Typography variant='body2'>{data.lastUpdate}</Typography>
     },
     {
       id: 'actions' as keyof SettingData,

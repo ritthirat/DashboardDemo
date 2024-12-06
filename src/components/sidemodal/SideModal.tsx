@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 
 import './SideModal.css'
+import { Button } from '@mui/material'
 
 interface DynamicModalProps {
   isOpen: boolean
@@ -48,6 +49,15 @@ const DynamicModal = ({ isOpen, title, toggleModal, children }: DynamicModalProp
         </div>
         <div className='relative overflow-y-auto' style={{ maxHeight: 'calc(100vh - 10rem)' }}>
           {children}
+
+          <div className='flex gap-2 w-full mt-10'>
+            <Button variant='contained' size='small' className='rounded-xl w-full' color='primary'>
+              บันทึก
+            </Button>
+            <Button variant='outlined' size='small' className='rounded-xl w-full' onClick={toggleModal}>
+              ยกเลิก
+            </Button>
+          </div>
         </div>
       </div>
 

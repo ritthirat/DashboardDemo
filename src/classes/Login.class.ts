@@ -12,5 +12,11 @@ class Login {
 
     return response
   }
+
+  async venueslist() {
+    const response: any = await instance.call('get', '/v1/web-office/venues')
+
+    return response
+  }
 }
 export default Login

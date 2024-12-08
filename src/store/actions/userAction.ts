@@ -1,28 +1,16 @@
-// import User from '@/classes/User.class'
-// import { setUser, setUserList } from '../slices/userSlice'
+import type { Dispatch } from 'redux'
 
-// const userInstance = new User()
+import Login from '@/classes/Login.class'
+import { setUserList } from '../slices/userSlice'
 
-// // export function createUser(data) {
-// //     return async (dispatch) => {
-// //         try {
-// //             dispatch(setLoading(true))
-// //             await userInstance.createUser(data)
-// //             dispatch(getUserList())
-// //             dispatch(showToast('success', 'Created successfully'))
-// //             dispatch(setLoading(false))
-// //         } catch (error) {
-// //             dispatch(showToast('error', error.response.data.message || error.response.data.error))
-// //             dispatch(setLoading(false))
-// //         }
-// //     }
-// // }
-// export const getProfile = () => async (dispatch:any) => {
-//     try {
-//         const res = await userInstance.profile()
-//         dispatch(setUser(res))
+const venues = new Login()
 
-//     } catch (error) {
-//         console.log(error)
-//     }
-// }
+export const venuesList = async (dispatch: Dispatch) => {
+  try {
+    const respons = await venues.venueslist()
+
+    dispatch(setUserList(respons))
+  } catch (error) {
+    console.log(error)
+  }
+}

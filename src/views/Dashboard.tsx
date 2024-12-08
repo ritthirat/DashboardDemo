@@ -1,6 +1,9 @@
 'use client'
 
 // React Imports
+import { useEffect } from 'react'
+
+import { useDispatch, useSelector } from 'react-redux'
 
 // MUI Imports
 import Grid from '@mui/material/Grid'
@@ -35,6 +38,8 @@ import {
 // Import icons CSS
 import '@/assets/iconify-icons/generated-icons.css'
 
+import { venuesList } from '@/store/actions/userAction'
+
 // Prepare chart data
 const chartData = Array(12)
   .fill(0)
@@ -45,6 +50,24 @@ const chartData = Array(12)
   }))
 
 const Dashboard = () => {
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    const getVenuesList = () => {
+      try {
+        venuesList(dispatch)
+      } catch (e) {
+        console.log(e)
+      }
+    }
+
+    getVenuesList()
+  }, [dispatch, venuesList])
+
+  const dataList = useSelector((state: any) => state.user.userList)
+
+  console.log(dataList)
+
   return (
     <Grid container spacing={6}>
       <Grid item xs={12} className='flex justify-end gap-2'>

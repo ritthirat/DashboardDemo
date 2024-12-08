@@ -62,7 +62,7 @@ const Dashboard = () => {
     }
 
     getVenuesList()
-  }, [dispatch, venuesList])
+  }, [dispatch])
 
   const dataList = useSelector((state: any) => state.user.userList)
 

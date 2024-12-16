@@ -9,16 +9,21 @@ COPY package.json bun.lockb ./
 # Install dependencies
 RUN bun install
 
-# Copy all files needed for icon generation
-COPY tsconfig.json ./
-COPY src/assets ./src/assets
-COPY package.json ./
+# Copy configuration files first
+COPY tsconfig.json next.config.mjs ./
 
-# Generate icons and verify
-RUN bun run build:icons && \
-    ls -la src/assets/iconify-icons/
+# Copy source files
+COPY src ./src
 
-# Copy remaining source files
+# Debug icon generation
+RUN echo "Generating icons..." && \
+    bun run build:icons && \
+    echo "Icon generation complete. Contents of src/assets/iconify-icons:" && \
+    ls -la src/assets/iconify-icons && \
+    echo "Generated icons content:" && \
+    cat src/assets/iconify-icons/generated-icons.css || echo "File not found"
+
+# Copy remaining files
 COPY . .
 
 # Set environment variables

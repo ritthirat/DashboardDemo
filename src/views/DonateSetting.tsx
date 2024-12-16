@@ -48,7 +48,7 @@ const DonateSetting = () => {
     {
       id: 'id' as keyof SettingData,
       label: 'ลําดับ',
-      reder: (data: SettingData) => <Typography variant='body2'>{data.id}</Typography>
+      render: (data: SettingData) => <Typography variant='body2'>{data.id}</Typography>
     },
     {
       id: 'name' as keyof SettingData,

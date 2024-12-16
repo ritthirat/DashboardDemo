@@ -1,48 +1,27 @@
-# Build stage
-FROM oven/bun:latest AS builder
+# Base image
+FROM oven/bun
 
+# Set working directory
 WORKDIR /app
 
-# Copy package files
-COPY package.json bun.lockb ./
+# Copy package.json and package-lock.json
+COPY package*.json ./
 
 # Install dependencies
 RUN bun install
 
-# Copy source files needed for icon generation
-COPY src/assets/iconify-icons ./src/assets/iconify-icons
-
-# Generate icons first
-RUN bun run build:icons
-
-# Copy remaining source files
+# Copy the rest of the application files
 COPY . .
 
-# Disable telemetry during build
-ENV NEXT_TELEMETRY_DISABLED=1
-
-# Build application
+# Build the Next.js app
 RUN bun run build
-
-# Production stage
-FROM oven/bun:slim AS runner
-
-WORKDIR /app
-
-# Copy necessary files from builder
-COPY --from=builder /app/public ./public
-COPY --from=builder /app/.next ./.next
-COPY --from=builder /app/package.json ./
-COPY --from=builder /app/next.config.mjs ./
-COPY --from=builder /app/node_modules ./node_modules
 
 # Set environment variables
 ENV NODE_ENV=production
 ENV PORT=3000
-ENV NEXT_TELEMETRY_DISABLED=1
 
-# Expose port
+# Expose the port used by the server
 EXPOSE $PORT
 
-# Start the application
+# Start the server
 CMD ["bun", "run", "start"]

@@ -1,13 +1,22 @@
-# Build stage
-FROM oven/bun:latest AS builder
+# Dependencies stage
+FROM oven/bun:latest AS deps
 
 WORKDIR /app
 
 # Copy package files
 COPY package.json bun.lockb ./
 
-# Install dependencies
+# Install dependencies using bun (faster)
 RUN bun install
+
+# Build stage
+FROM node:20-alpine AS builder
+
+WORKDIR /app
+
+# Copy dependencies from bun stage
+COPY --from=deps /app/node_modules ./node_modules
+COPY --from=deps /app/package.json ./
 
 # Copy configuration files first
 COPY tsconfig.json next.config.mjs ./
@@ -17,7 +26,7 @@ COPY src ./src
 
 # Debug icon generation
 RUN echo "Generating icons..." && \
-    bun run build:icons && \
+    npm run build:icons && \
     echo "Icon generation complete. Contents of src/assets/iconify-icons:" && \
     ls -la src/assets/iconify-icons && \
     echo "Generated icons content:" && \
@@ -31,10 +40,10 @@ ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
 
 # Build application
-RUN bun run build
+RUN npm run build
 
 # Production stage
-FROM oven/bun:slim AS runner
+FROM node:20-alpine AS runner
 
 WORKDIR /app
 
@@ -54,4 +63,4 @@ ENV NEXT_TELEMETRY_DISABLED=1
 EXPOSE $PORT
 
 # Start the application
-CMD ["bun", "run", "start"]
+CMD ["npm", "run", "start"]

@@ -34,7 +34,7 @@ import themeConfig from '@configs/themeConfig'
 // Hook Imports
 import { useImageVariant } from '@core/hooks/useImageVariant'
 import { useSettings } from '@core/hooks/useSettings'
-import Login from '@/classes/Login.class'
+import Login from '@/classes/Auth.class'
 
 // Styled Custom Components
 const LoginIllustration = styled('img')(({ theme }) => ({

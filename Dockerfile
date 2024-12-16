@@ -6,11 +6,12 @@ WORKDIR /app
 # Copy package files
 COPY package.json bun.lockb ./
 
+# Run postinstall script for icons
+RUN bun run build:icons
+
 # Install dependencies
 RUN bun install
 
-# Run postinstall script for icons
-RUN bun run build:icons
 
 # Copy source files
 COPY . .

@@ -9,11 +9,17 @@ COPY package.json bun.lockb ./
 # Install dependencies
 RUN bun install
 
-# Run postinstall script for icons
+# Copy source files needed for icon generation
+COPY src/assets/iconify-icons ./src/assets/iconify-icons
+
+# Generate icons first
 RUN bun run build:icons
 
-# Copy source files
+# Copy remaining source files
 COPY . .
+
+# Disable telemetry during build
+ENV NEXT_TELEMETRY_DISABLED=1
 
 # Build application
 RUN bun run build
@@ -33,6 +39,7 @@ COPY --from=builder /app/node_modules ./node_modules
 # Set environment variables
 ENV NODE_ENV=production
 ENV PORT=3000
+ENV NEXT_TELEMETRY_DISABLED=1
 
 # Expose port
 EXPOSE $PORT

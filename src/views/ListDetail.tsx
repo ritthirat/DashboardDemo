@@ -1,7 +1,12 @@
+'use client'
+import { useState } from 'react'
+
 import { Button, Card, CardContent, CardHeader, Chip, Typography } from '@mui/material'
 
 import DynamicTable from '@/components/table/DyamicTable'
 import { formattedDate } from '@/utils/formate'
+import AiSetting from '@/components/Aisetting'
+import CustomSwitch from '@/@core/components/mui/Switch'
 
 interface Props {
   id: number
@@ -14,6 +19,12 @@ interface Props {
 }
 
 const ListDetail = () => {
+  const [isOpen, setIsOpen] = useState(false)
+
+  const toggleModal = () => {
+    setIsOpen(prev => !prev)
+  }
+
   const data: Props[] = [
     {
       id: 1,
@@ -99,12 +110,32 @@ const ListDetail = () => {
   ]
 
   return (
-    <Card>
-      <CardHeader title='รายการโดเนท' />
-      <CardContent>
-        <DynamicTable columns={columns} data={data} />
-      </CardContent>
-    </Card>
+    <div>
+      <Card>
+        <CardHeader title='รายการโดเนท' />
+        <CardContent>
+          <div className='flex justify-between'>
+            <div className='flex gap-2 items-center'>
+              <CustomSwitch defaultChecked />
+
+              <Typography variant='h5'>ใช้งาน Ai อนุมัติรายการ</Typography>
+              <i onClick={toggleModal} className='tabler-settings cursor-pointer' />
+            </div>
+            <div>
+              <Button variant='contained' color='primary'>
+                <i className='tabler-plus' />
+                เพิ่มรายการ
+              </Button>
+            </div>
+          </div>
+          <Typography variant='body1'>
+            ไม่มีค่าบริการในการใช้ AI สามารถใช้เป็นตัวช่วยในการอนุมัติรูปภาพและวีดีโอได้ฟรี
+          </Typography>
+          <DynamicTable columns={columns} data={data} />
+        </CardContent>
+      </Card>
+      <AiSetting isOpen={isOpen} toggleModal={toggleModal} />
+    </div>
   )
 }
 

@@ -1,8 +1,9 @@
-import { Switch, Typography } from '@mui/material'
+import { Typography } from '@mui/material'
 
 import DynamicModal from './sidemodal/SideModal'
 import DragAndDropFile from './DragAndDropFile'
 import CustomTextField from '@/@core/components/mui/TextField'
+import CustomSwitch from '@/@core/components/mui/Switch'
 
 interface DonateSettingModalProps {
   isOpen: boolean
@@ -46,11 +47,11 @@ const DonateSettingModal = ({ isOpen, toggleModal }: DonateSettingModalProps) =>
         </div>
         <div>
           <div className='flex items-center'>
-            <Switch defaultChecked />
+            <CustomSwitch defaultChecked />
             <Typography variant='h6'>ใช้งานขอเพลง</Typography>
           </div>
           <div className='flex items-center'>
-            <Switch defaultChecked />
+            <CustomSwitch defaultChecked />
             <Typography variant='h6'>คิดอะไรออกค่อยใส่</Typography>
           </div>
         </div>

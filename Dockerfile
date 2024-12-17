@@ -10,7 +10,7 @@ COPY package.json bun.lockb ./
 RUN bun install
 
 # Build stage
-FROM node:slim AS builder
+FROM node:23-alpine AS builder
 
 WORKDIR /app
 
@@ -39,7 +39,7 @@ ENV NEXT_TELEMETRY_DISABLED=1
 RUN npm run build
 
 # Production stage
-FROM node:slim AS runner
+FROM node:23-alpine AS runner
 
 WORKDIR /app
 

@@ -10,7 +10,7 @@ COPY package.json bun.lockb ./
 RUN bun install
 
 # Build stage
-FROM node:20-alpine AS builder
+FROM node:slim AS builder
 
 WORKDIR /app
 
@@ -26,11 +26,7 @@ COPY src ./src
 
 # Debug icon generation
 RUN echo "Generating icons..." && \
-    npm run build:icons && \
-    echo "Icon generation complete. Contents of src/assets/iconify-icons:" && \
-    ls -la src/assets/iconify-icons && \
-    echo "Generated icons content:" && \
-    cat src/assets/iconify-icons/generated-icons.css || echo "File not found"
+    npm run build:icons
 
 # Copy remaining files
 COPY . .
@@ -43,7 +39,7 @@ ENV NEXT_TELEMETRY_DISABLED=1
 RUN npm run build
 
 # Production stage
-FROM node:20-alpine AS runner
+FROM node:slim AS runner
 
 WORKDIR /app
 

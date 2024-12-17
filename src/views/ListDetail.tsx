@@ -28,7 +28,7 @@ const ListDetail = () => {
   const data: Props[] = [
     {
       id: 1,
-      list: 'test1',
+      list: 'test11',
       sender: 'test',
       amount: 100,
       detail: 'test',

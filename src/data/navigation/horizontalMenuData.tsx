@@ -38,12 +38,12 @@ const horizontalMenuData = (): HorizontalMenuDataType[] => [
   },
   {
     label: 'คำสั่งซื้อ',
-    href: '/about',
+    href: '/oders',
     icon: 'tabler-receipt-dollar'
   },
   {
     label: 'โปรไฟล์',
-    href: '/about',
+    href: '/profile',
     icon: 'tabler-user-circle'
   }
 ]

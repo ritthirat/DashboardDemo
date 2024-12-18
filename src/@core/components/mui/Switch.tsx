@@ -13,8 +13,8 @@ const StyledSwitch = styled(Switch)(({ theme }) => ({
     borderRadius: 13
   },
   '& .MuiSwitch-thumb': {
-    width: 23,
-    height: 23,
+    width: 22,
+    height: 22,
     transform: 'translateX(0px)'
   },
   '& .MuiSwitch-switchBase': {

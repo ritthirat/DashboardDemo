@@ -100,7 +100,7 @@ const LoginV2 = ({ mode }: { mode: SystemMode }) => {
 
     try {
       if (!isUsername || !isPassword) {
-        alert('Please enter username and password')
+        toast.info('Please enter username and password')
 
         return
       } else {

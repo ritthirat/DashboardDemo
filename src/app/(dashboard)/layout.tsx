@@ -1,5 +1,6 @@
 // MUI Imports
 import Button from '@mui/material/Button'
+import { ToastContainer } from 'react-toastify'
 
 // Type Imports
 
@@ -35,6 +36,7 @@ const Layout = async ({ children }: ChildrenType) => {
     <Providers direction={direction}>
       <ReduxProvider>
         <ClientWrapper>
+          <ToastContainer />
           <LayoutWrapper
             systemMode={systemMode}
             verticalLayout={

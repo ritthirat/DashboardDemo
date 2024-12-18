@@ -1,3 +1,5 @@
+import { ToastContainer } from 'react-toastify'
+
 // Type Imports
 import type { ChildrenType } from '@core/types'
 
@@ -17,6 +19,7 @@ const Layout = ({ children }: Props) => {
 
   return (
     <Providers direction={direction}>
+      <ToastContainer />
       <BlankLayout systemMode={systemMode}>{children}</BlankLayout>
     </Providers>
   )

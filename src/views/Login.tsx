@@ -21,6 +21,8 @@ import Divider from '@mui/material/Divider'
 import classnames from 'classnames'
 
 // Type Imports
+import { toast } from 'react-toastify'
+
 import type { SystemMode } from '@core/types'
 
 // Component Imports
@@ -106,12 +108,12 @@ const LoginV2 = ({ mode }: { mode: SystemMode }) => {
 
         if (respose.data) {
           router.push('/')
-        } else if (respose.error) {
-          alert(respose.error)
+          toast.success('Login Success')
         }
       }
     } catch (error: any) {
       console.log(error.response?.data)
+      toast.error(error.response?.data.error.message)
     }
   }
 

@@ -6,7 +6,7 @@ import { Button, Card, CardContent, CardHeader, Chip, Typography } from '@mui/ma
 import { historylist } from '@/data/mock/dashboardData'
 import type { HistoryList } from '@/data/mock/dashboardData'
 
-import HistoryDetailModal from '@/components/็HistoryDetailModal'
+import HistoryDetailModal from '@/components/HistoryDetailModal'
 import { formattedDate } from '@/utils/formate'
 import DynamicTable from '@/components/table/DyamicTable'
 

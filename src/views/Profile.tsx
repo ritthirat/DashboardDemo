@@ -7,7 +7,7 @@ const Profile = () => {
     <Card>
       <CardHeader title='โปรไฟล์' />
       <CardContent className='flex flex-col gap-4'>
-        <div className='flex '>
+        <div className='flex  '>
           <Typography className='font-bold w-1/4' variant='h5'>
             ชื่อร้าน
           </Typography>
@@ -38,7 +38,13 @@ const Profile = () => {
           />
         </div>
         <div className='flex flex-col justify-center gap-4 mt-4'>
-          <img src='/images/qrcode.png' alt='qrcode' className='m-auto border-[15px] border-white rounded-lg' />
+          <img
+            src='/images/qrcode.png'
+            alt='qrcode'
+            width={200}
+            height={200}
+            className='m-auto border-[15px] border-white rounded-lg object-cover'
+          />
 
           <Button className='m-auto' variant='contained'>
             ดาวน์โหลด QR Code

@@ -107,8 +107,10 @@ const LoginV2 = ({ mode }: { mode: SystemMode }) => {
         const respose = await loginInstance.login(isUsername, isPassword)
 
         if (respose.data) {
-          router.push('/')
-          toast.success('Login Success')
+          toast.success('Login successful')
+          setTimeout(() => {
+            router.push('/')
+          }, 1000)
         }
       }
     } catch (error: any) {

@@ -134,7 +134,7 @@ const TextFieldStyled = styled(TextField)<TextFieldProps>(({ theme }) => ({
 
   '& .MuiInputBase-input': {
     '&:not(textarea).MuiInputBase-inputSizeSmall': {
-      padding: '7.25px 14px'
+      padding: '6px 14px'
     },
     '&:not(.MuiInputBase-readOnly):not([readonly])::placeholder': {
       transition: theme.transitions.create(['opacity', 'transform'], {

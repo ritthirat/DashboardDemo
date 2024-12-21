@@ -15,7 +15,6 @@ import InputAdornment from '@mui/material/InputAdornment'
 import Checkbox from '@mui/material/Checkbox'
 import Button from '@mui/material/Button'
 import FormControlLabel from '@mui/material/FormControlLabel'
-import Divider from '@mui/material/Divider'
 
 // Third-party Imports
 import classnames from 'classnames'
@@ -195,7 +194,7 @@ const LoginV2 = ({ mode }: { mode: SystemMode }) => {
                 Create an account
               </Typography>
             </div>
-            <Divider className='gap-2 text-textPrimary'>or</Divider>
+            {/* <Divider className='gap-2 text-textPrimary'>or</Divider>
             <div className='flex justify-center items-center gap-1.5'>
               <IconButton className='text-facebook' size='small'>
                 <i className='tabler-brand-facebook-filled' />
@@ -209,7 +208,7 @@ const LoginV2 = ({ mode }: { mode: SystemMode }) => {
               <IconButton className='text-error' size='small'>
                 <i className='tabler-brand-google-filled' />
               </IconButton>
-            </div>
+            </div> */}
           </form>
         </div>
       </div>

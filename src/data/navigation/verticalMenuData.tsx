@@ -19,27 +19,31 @@ const verticalMenuData = (): VerticalMenuDataType[] => [
   },
   {
     label: 'ประวัติการใช้งาน',
-    href: '/dashboard',
+    href: '/history',
     icon: 'tabler-file-chart'
   },
   {
     label: 'ตั้งค่า',
-    href: '/setting-page',
+    children: [
+      { label: 'ข้อความ ', href: '/setting/message-page' },
+      { label: 'โดเนท', href: '/setting/donate-page' },
+      { label: 'ปรับแต่งหน้าจอ', href: '/setting/screen-page' }
+    ],
     icon: 'tabler-settings'
   },
   {
     label: 'รายการ',
-    href: '/about',
+    href: '/list',
     icon: 'tabler-list-details'
   },
   {
     label: 'คำสั่งซื้อ',
-    href: '/about',
+    href: '/oders',
     icon: 'tabler-receipt-dollar'
   },
   {
     label: 'โปรไฟล์',
-    href: '/about',
+    href: '/profile',
     icon: 'tabler-user-circle'
   }
 ]

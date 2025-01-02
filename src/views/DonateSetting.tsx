@@ -1,89 +1,76 @@
 'use client'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { Button, Card, CardContent, CardHeader, Switch, Typography } from '@mui/material'
+import { useDispatch, useSelector } from 'react-redux'
 
+import type { Column } from '@/components/table/DyamicTable'
 import DynamicTable from '@/components/table/DyamicTable'
 import DonateSettingModal from '@/components/DonateSettingModal'
-
-interface SettingData {
-  id: number
-  name: string
-  catogory: string
-  status: boolean
-  lastUpdate: string
-}
+import { getProductsList } from '@/store/actions/productsAction'
+import type { RootState } from '@/store'
+import type { ProductList } from '@/types/productsType'
 
 const DonateSetting = () => {
   const [isOpen, setIsOpen] = useState(false)
+  const dispatch = useDispatch()
 
   const toggleModal = () => {
     setIsOpen(prev => !prev)
   }
 
-  const data: SettingData[] = [
-    {
-      id: 1,
-      name: 'test',
-      catogory: 'test',
-      status: true,
-      lastUpdate: 'test'
-    },
-    {
-      id: 2,
-      name: 'test2',
-      catogory: 'test2',
-      status: false,
-      lastUpdate: 'test2'
-    }
-  ]
+  useEffect(() => {
+    getProductsList(dispatch)
+  }, [dispatch])
 
-  const [isData, setData] = useState(data) // [data, setData]
+  const productList = useSelector((state: RootState) => state.products.productList)
 
-  const switchHandler = (id: number) => {
-    setData(prevData => prevData.map(item => (item.id === id ? { ...item, status: !item.status } : item)))
-  }
+  console.log(productList)
 
-  const columns = [
+  const columns: Column<ProductList[number]>[] = [
     {
-      id: 'id' as keyof SettingData,
+      id: 'order_index',
       label: 'ลําดับ',
-      render: (data: SettingData) => <Typography variant='body2'>{data.id}</Typography>
+      render: data => <Typography variant='body2'>{data.order_index}</Typography>
     },
     {
-      id: 'name' as keyof SettingData,
+      id: 'name',
       label: 'ชื่อ',
-      render: (data: SettingData) => <Typography variant='body2'>{data.name}</Typography>
+      render: data => <Typography variant='body2'>{data.name}</Typography>
     },
     {
-      id: 'catogory' as keyof SettingData,
+      id: 'type',
       label: 'ประเภทโดเนท',
-      render: (data: SettingData) => <Typography variant='body2'>{data.catogory}</Typography>
+      render: data => <Typography variant='body2'>{data.type}</Typography>
     },
     {
-      id: 'status' as keyof SettingData,
+      id: 'description',
+      label: 'คําอธิบาย',
+      render: data => <Typography variant='body2'>{data.description}</Typography>
+    },
+    {
+      id: 'enabled',
       label: 'สถานะ',
-      render: (data: SettingData) => (
+      render: data => (
         <Switch
-          checked={data.status}
+          checked={data.enabled}
           color='success'
-          onChange={() => switchHandler(data.id)}
           inputProps={{ 'aria-label': 'controlled' }}
           sx={{
             '& .MuiSwitch-track': {
-              backgroundColor: data.status ? 'success.main' : 'error.main'
+              backgroundColor: data.enabled ? 'success.main' : 'error.main'
             }
           }}
         />
       )
     },
     {
-      id: 'lastUpdate' as keyof SettingData,
+      id: 'updatedAt',
       label: 'อัพเดทล่าสุด',
-      render: (data: SettingData) => <Typography variant='body2'>{data.lastUpdate}</Typography>
+      render: data => <Typography variant='body2'>{data.updatedAt}</Typography>
     },
     {
-      id: 'actions' as keyof SettingData,
+      id: 'actions' as keyof ProductList[number],
       label: 'จัดการ',
       align: 'center' as const,
       sx: { width: '250px' },
@@ -112,7 +99,7 @@ const DonateSetting = () => {
           }
         />
         <CardContent>
-          <DynamicTable columns={columns} data={isData} />
+          <DynamicTable columns={columns} data={productList} />
         </CardContent>
       </Card>
       <DonateSettingModal isOpen={isOpen} toggleModal={toggleModal} />

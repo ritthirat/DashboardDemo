@@ -2,7 +2,7 @@ import React from 'react'
 
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material'
 
-interface Column<T> {
+export interface Column<T> {
   id: keyof T
   label: string
   align?: 'left' | 'center' | 'right'

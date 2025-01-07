@@ -11,3 +11,11 @@ export type ProductList = Array<{
   createAt: string
   updatedAt: string
 }>
+
+export type AddProductType = {
+  name: string
+  type: string
+  description: string
+  thumbnail: string | null
+  minPrice: number
+}

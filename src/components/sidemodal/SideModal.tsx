@@ -8,9 +8,10 @@ interface DynamicModalProps {
   title: string
   toggleModal: () => void
   children: React.ReactNode
+  onSubmit: () => void
 }
 
-const DynamicModal = ({ isOpen, title, toggleModal, children }: DynamicModalProps) => {
+const DynamicModal = ({ isOpen, title, toggleModal, children, onSubmit }: DynamicModalProps) => {
   // const [isOpen, setIsOpen] = useState(false)
   const [isSmallScreen, setIsSmallScreen] = useState(false)
 
@@ -51,7 +52,7 @@ const DynamicModal = ({ isOpen, title, toggleModal, children }: DynamicModalProp
           {children}
 
           <div className='flex gap-2 w-full mt-10'>
-            <Button variant='contained' size='small' className='rounded-xl w-full' color='primary'>
+            <Button variant='contained' size='small' className='rounded-xl w-full' onClick={onSubmit} color='primary'>
               บันทึก
             </Button>
             <Button variant='outlined' size='small' className='rounded-xl w-full' onClick={toggleModal}>

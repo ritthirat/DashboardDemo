@@ -3,11 +3,12 @@ import { useEffect, useState } from 'react'
 
 import { Button, Card, CardContent, CardHeader, Switch, Typography } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
+import { toast } from 'react-toastify'
 
 import type { Column } from '@/components/table/DyamicTable'
 import DynamicTable from '@/components/table/DyamicTable'
 import DonateSettingModal from '@/components/DonateSettingModal'
-import { getProductsList } from '@/store/actions/productsAction'
+import { deleteProduct, getProductsList } from '@/store/actions/productsAction'
 import type { RootState } from '@/store'
 import type { ProductList } from '@/types/productsType'
 
@@ -26,6 +27,15 @@ const DonateSetting = () => {
   const productList = useSelector((state: RootState) => state.products.productList)
 
   console.log(productList)
+
+  const handleDelete = async (id: string) => {
+    try {
+      deleteProduct(dispatch, id)
+      toast.success('ลบสําเร็จ')
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   const columns: Column<ProductList[number]>[] = [
     {
@@ -74,12 +84,18 @@ const DonateSetting = () => {
       label: 'จัดการ',
       align: 'center' as const,
       sx: { width: '250px' },
-      render: () => (
+      render: data => (
         <div className='flex justify-center gap-2'>
           <Button variant='outlined' size='small' color='info' className='rounded-xl'>
             แก้ไข
           </Button>
-          <Button variant='outlined' size='small' className='rounded-xl' color='error'>
+          <Button
+            variant='outlined'
+            size='small'
+            className='rounded-xl'
+            color='error'
+            onClick={() => handleDelete(data.id)}
+          >
             ลบ
           </Button>
         </div>

@@ -1,5 +1,5 @@
 import instance from '@/plugins/instance'
-import type { AddProductType, ProductList } from '@/types/productsType'
+import type { AddProductType, ProductList, UpdateProductType } from '@/types/productsType'
 import type { ResponseData } from './../plugins/type'
 
 class Products {
@@ -15,8 +15,12 @@ class Products {
     return response
   }
 
-  async updateProduct(id: string, data: AddProductType) {
-    const response: ResponseData<AddProductType> = await instance.call('put', `/v1/web-venues/product/${id}`, data)
+  async updateProduct(productId: string, data: UpdateProductType) {
+    const response: ResponseData<UpdateProductType> = await instance.call(
+      'put',
+      `/v1/web-venues/product/${productId}`,
+      data
+    )
 
     return response
   }

@@ -18,4 +18,23 @@ export type AddProductType = {
   description: string
   thumbnail: string | null
   minPrice: number
+  enabled: boolean
+}
+
+export type UpdateProductType = {
+  name: string
+  type: string
+  description: string
+  thumbnail: string | null
+  minPrice: number
+  enabled: boolean
+}
+
+export type Product = {
+  name: string
+  type: string
+  description: string
+  thumbnail: string | null
+  minPrice: number
+  enabled: boolean
 }

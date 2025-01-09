@@ -9,16 +9,19 @@ import DragAndDropFile from './DragAndDropFile'
 import CustomTextField from '@/@core/components/mui/TextField'
 import CustomSwitch from '@/@core/components/mui/Switch'
 import type { RootState } from '@/store'
-import { addProduct, getProductsList } from '@/store/actions/productsAction'
+import { addProduct, getProductsList, getUpdateProduct } from '@/store/actions/productsAction'
 import type { AddProductType } from '@/types/productsType'
 
 interface DonateSettingModalProps {
   isOpen: boolean
   toggleModal: () => void
+  data: any
 }
 
-const DonateSettingModal = ({ isOpen, toggleModal }: DonateSettingModalProps) => {
+const DonateSettingModal = ({ isOpen, toggleModal, data }: DonateSettingModalProps) => {
   const dispatch = useDispatch()
+
+  console.log('data:', data)
 
   const uploadfile = useSelector((state: RootState) => state.service.uploadFile?.url)
 
@@ -29,10 +32,7 @@ const DonateSettingModal = ({ isOpen, toggleModal }: DonateSettingModalProps) =>
     }))
   }, [uploadfile])
 
-  const [types, setType] = useState('message_tip')
-
   const handleChange = (event: SelectChangeEvent) => {
-    setType(event.target.value as string)
     setFormData(prev => ({
       ...prev,
       type: event.target.value
@@ -44,10 +44,17 @@ const DonateSettingModal = ({ isOpen, toggleModal }: DonateSettingModalProps) =>
     type: 'message_tip',
     minPrice: 0,
     thumbnail: '',
-    description: ''
+    description: '',
+    enabled: true
   })
 
   const [resetFile, setResetFile] = useState(false)
+
+  useEffect(() => {
+    if (data) {
+      setFormData(data)
+    }
+  }, [data])
 
   useEffect(() => {
     if (!isOpen) {
@@ -56,7 +63,8 @@ const DonateSettingModal = ({ isOpen, toggleModal }: DonateSettingModalProps) =>
         type: 'message_tip',
         minPrice: 0,
         thumbnail: '',
-        description: ''
+        description: '',
+        enabled: true
       })
       setResetFile(true) // รีเซ็ต DragAndDropFile เมื่อโมดอลปิด
     } else {
@@ -74,12 +82,23 @@ const DonateSettingModal = ({ isOpen, toggleModal }: DonateSettingModalProps) =>
     }
   }
 
-  console.log(uploadfile)
-  console.log(formdata)
+  const handleEdit = async () => {
+    try {
+      getUpdateProduct(dispatch, data.id, formdata)
+      toggleModal()
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   return (
-    <DynamicModal isOpen={isOpen} toggleModal={toggleModal} title='เพิ่มโดเนท' onSubmit={handleForm}>
-      <DragAndDropFile resetFile={resetFile} />
+    <DynamicModal
+      isOpen={isOpen}
+      toggleModal={toggleModal}
+      title={data ? 'แก้ไขโดเนท' : 'เพิ่มโดเนท'}
+      onSubmit={data ? handleEdit : handleForm}
+    >
+      <DragAndDropFile resetFile={resetFile} editImage={formdata?.thumbnail} />
       <div className='mt-4 flex flex-col  gap-2'>
         <div>
           <Typography variant='h5'>ประเภทโดเนท</Typography>
@@ -87,7 +106,8 @@ const DonateSettingModal = ({ isOpen, toggleModal }: DonateSettingModalProps) =>
             fullWidth
             labelId='demo-simple-select-label'
             id='demo-simple-select'
-            value={types}
+            disabled={data ? true : false}
+            value={formdata.type}
             onChange={handleChange}
           >
             <MenuItem value={'message_tip'}>ทิป</MenuItem>

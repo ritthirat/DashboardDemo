@@ -2,7 +2,7 @@ import type { Dispatch } from '@reduxjs/toolkit'
 
 import Products from '@/classes/Product.class'
 import { setProductList } from '../slices/produtsSlice'
-import type { AddProductType } from '@/types/productsType'
+import type { AddProductType, UpdateProductType } from '@/types/productsType'
 
 const products = new Products()
 
@@ -21,6 +21,18 @@ export const getProductsList = async (dispatch: Dispatch) => {
 export const addProduct = async (dispatch: Dispatch, data: AddProductType) => {
   try {
     const response = await products.addProduct(data)
+
+    getProductsList(dispatch)
+
+    return response
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const getUpdateProduct = async (dispatch: Dispatch, productId: string, data: UpdateProductType) => {
+  try {
+    const response = await products.updateProduct(productId, data)
 
     getProductsList(dispatch)
 

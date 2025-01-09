@@ -6,10 +6,12 @@ import { Avatar, Box, Typography } from '@mui/material'
 
 import { uploadFile } from '@/store/actions/serviceAction'
 
-const DragAndDropFile = ({ resetFile }: { resetFile: boolean }) => {
+const DragAndDropFile = ({ resetFile, editImage }: { resetFile: boolean; editImage: string | null }) => {
   const [fileNames, setFileNames] = useState<string | null>(null) // เก็บชื่อไฟล์เดียว
   const dispatch = useDispatch()
   const [img, setImg] = useState<string | null>(null)
+
+  console.log('editImage:', editImage)
 
   const onDrop = useCallback(
     (acceptedFiles: File[]) => {
@@ -41,6 +43,12 @@ const DragAndDropFile = ({ resetFile }: { resetFile: boolean }) => {
     }
   }, [resetFile])
 
+  useEffect(() => {
+    if (editImage) {
+      setFileNames(editImage)
+    }
+  }, [editImage])
+
   return (
     <div>
       <Box
@@ -71,8 +79,12 @@ const DragAndDropFile = ({ resetFile }: { resetFile: boolean }) => {
         {fileNames && (
           <Box sx={{ marginTop: 1 }}>
             <Typography variant='subtitle1'>ไฟล์ที่เลือก:</Typography>
-            <img src={img ?? undefined} alt='Uploaded' className=' h-20 w-20 object-cover rounded-lg' />
-            <Typography variant='body2'>{fileNames}</Typography>
+            <img
+              src={editImage ? editImage : img || undefined}
+              alt='Uploaded'
+              className=' h-20 w-20 object-cover rounded-lg'
+            />
+            {/* <Typography variant='body2'>{fileNames}</Typography> */}
           </Box>
         )}
       </Box>

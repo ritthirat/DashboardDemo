@@ -8,9 +8,10 @@ import { toast } from 'react-toastify'
 import type { Column } from '@/components/table/DyamicTable'
 import DynamicTable from '@/components/table/DyamicTable'
 import DonateSettingModal from '@/components/DonateSettingModal'
-import { deleteProduct, getProductsList } from '@/store/actions/productsAction'
+import { deleteProduct, getProductsList, getUpdateProduct } from '@/store/actions/productsAction'
 import type { RootState } from '@/store'
-import type { ProductList } from '@/types/productsType'
+import type { Product, ProductList } from '@/types/productsType'
+import { setProduct } from '@/store/slices/produtsSlice'
 
 const DonateSetting = () => {
   const [isOpen, setIsOpen] = useState(false)
@@ -26,12 +27,33 @@ const DonateSetting = () => {
 
   const productList = useSelector((state: RootState) => state.products.productList)
 
-  console.log(productList)
-
   const handleDelete = async (id: string) => {
     try {
       deleteProduct(dispatch, id)
       toast.success('ลบสําเร็จ')
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const [edit, setEdit] = useState<Product | null>(null)
+
+  const handleEdit = async (data: Product) => {
+    setEdit(data)
+    setProduct(data)
+    toggleModal()
+  }
+
+  useEffect(() => {
+    if (!isOpen) {
+      setEdit(null)
+    }
+  }, [isOpen])
+
+  const editActive = (id: string, data: Product) => {
+    try {
+      getUpdateProduct(dispatch, id, data)
+      setEdit(data)
     } catch (error) {
       console.log(error)
     }
@@ -46,7 +68,12 @@ const DonateSetting = () => {
     {
       id: 'name',
       label: 'ชื่อ',
-      render: data => <Typography variant='body2'>{data.name}</Typography>
+      render: data => (
+        <div className='flex items-center gap-2'>
+          <img src={data.thumbnail || ''} alt='thumbnail' width={50} height={50} />{' '}
+          <Typography variant='body2'>{data.name}</Typography>
+        </div>
+      )
     },
     {
       id: 'type',
@@ -64,6 +91,7 @@ const DonateSetting = () => {
       render: data => (
         <Switch
           checked={data.enabled}
+          onChange={() => editActive(data.id, { ...data, enabled: !data.enabled })}
           color='success'
           inputProps={{ 'aria-label': 'controlled' }}
           sx={{
@@ -86,7 +114,7 @@ const DonateSetting = () => {
       sx: { width: '250px' },
       render: data => (
         <div className='flex justify-center gap-2'>
-          <Button variant='outlined' size='small' color='info' className='rounded-xl'>
+          <Button variant='outlined' size='small' color='info' className='rounded-xl' onClick={() => handleEdit(data)}>
             แก้ไข
           </Button>
           <Button
@@ -118,7 +146,7 @@ const DonateSetting = () => {
           <DynamicTable columns={columns} data={productList} />
         </CardContent>
       </Card>
-      <DonateSettingModal isOpen={isOpen} toggleModal={toggleModal} />
+      <DonateSettingModal data={edit} isOpen={isOpen} toggleModal={toggleModal} />
     </div>
   )
 }

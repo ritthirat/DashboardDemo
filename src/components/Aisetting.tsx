@@ -10,7 +10,7 @@ interface Props {
 
 const AiSetting = ({ isOpen, toggleModal }: Props) => {
   return (
-    <DynamicModal isOpen={isOpen} toggleModal={toggleModal} title='ตั้งค่า AI'>
+    <DynamicModal isOpen={isOpen} toggleModal={toggleModal} title='ตั้งค่า AI' onSubmit={() => {}}>
       <div className='mt-4 mx-4 flex flex-col  gap-2'>
         <div>
           <Typography variant='h4'>แอลกอฮอล์</Typography>

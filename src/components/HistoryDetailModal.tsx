@@ -17,7 +17,7 @@ interface HistoryDetailModalProps {
 const HistoryDetailModal = ({ isOpen, toggleModal }: HistoryDetailModalProps) => {
   return (
     <div>
-      <DynamicModal title='test123' isOpen={isOpen} toggleModal={toggleModal}>
+      <DynamicModal title='test123' isOpen={isOpen} toggleModal={toggleModal} onSubmit={() => {}}>
         <Grid container spacing={2}>
           <Grid item xs={12} md={6} lg={6}>
             <Card>

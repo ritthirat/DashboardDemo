@@ -20,7 +20,7 @@ const MessageModal = ({ isOpen, toggleModal }: Props) => {
   }
 
   return (
-    <DynamicModal isOpen={isOpen} toggleModal={toggleModal} title='เพิ่มข้อมความ'>
+    <DynamicModal isOpen={isOpen} toggleModal={toggleModal} title='เพิ่มข้อมความ' onSubmit={() => {}}>
       <Grid container spacing={2}>
         <Grid item xs={12} md={12} lg={12}>
           <div className='flex flex-col gap-2'>

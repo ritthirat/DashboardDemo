@@ -149,10 +149,6 @@ const DonateSettingModal = ({ isOpen, toggleModal, data }: DonateSettingModalPro
           />
         </div>
         <div>
-          <Typography variant='h5'>ข้อความ</Typography>
-          <CustomTextField fullWidth placeholder='เลือกชุดข้อความ' />
-        </div>
-        <div>
           <div className='flex items-center'>
             <CustomSwitch defaultChecked />
             <Typography variant='h6'>ใช้งานขอเพลง</Typography>

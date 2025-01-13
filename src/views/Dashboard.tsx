@@ -75,28 +75,26 @@ const Dashboard = () => {
 
   return (
     <Grid container spacing={6}>
-      <Grid item xs={12} className='flex justify-end gap-2'>
-        {report === 'กำหนดเอง' ? (
+      <Grid item xs={12} className='flex justify-end gap-2 '>
+        <div className='flex flex-col gap-2 md:flex-row'>
           <div className='flex items-center gap-2'>
             <DatePicker label='เริ่มต้น' />
             <div className='flex items-center justify-center'> - </div>
             <DatePicker label='สิ้นสุด' />
           </div>
-        ) : (
-          ''
-        )}
-        <div className='flex items-center gap-2 m-3'>
-          <Button
-            className='w-1/3 md:w-[150px]  '
-            variant='contained'
-            id='basic-button'
-            aria-controls={open ? 'basic-menu' : undefined}
-            aria-haspopup='true'
-            aria-expanded={open ? 'true' : undefined}
-            onClick={handleClick}
-          >
-            {report}
-          </Button>
+          <div className='flex items-center gap-2 m-0 md:m-3 justify-end'>
+            <Button
+              className='w-1/3 md:w-[150px]  '
+              variant='contained'
+              id='basic-button'
+              aria-controls={open ? 'basic-menu' : undefined}
+              aria-haspopup='true'
+              aria-expanded={open ? 'true' : undefined}
+              onClick={handleClick}
+            >
+              {report}
+            </Button>
+          </div>
         </div>
         <Menu
           id='basic-menu'

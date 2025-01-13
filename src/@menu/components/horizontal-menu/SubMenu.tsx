@@ -348,16 +348,6 @@ const SubMenu: ForwardRefRenderFunction<HTMLLIElement, SubMenuProps> = (props, r
         <MenuButton
           title={title}
           className={classnames(menuClasses.button, { [menuClasses.active]: active })}
-          style={
-            label === 'ระบบแจกวาป'
-              ? {
-                  border: '1px solid ', // Add a border for the outline
-                  borderRadius: '4px', // Optional: Add border radius for rounded corners
-                  padding: '8px', // Adjust padding as needed
-                  borderColor: 'var(--mui-palette-primary-main)'
-                }
-              : {}
-          }
           component={component}
           onClick={handleOnClick}
           onKeyUp={handleOnKeyUp}
@@ -370,10 +360,7 @@ const SubMenu: ForwardRefRenderFunction<HTMLLIElement, SubMenuProps> = (props, r
             active,
             disabled,
             renderExpandedMenuItemIcon,
-            styles: {
-              color: label === 'ระบบแจกวาป' ? 'var(--mui-palette-primary-main)' : 'inherit',
-              ...getSubMenuItemStyles('icon') // Keep other icon styles
-            }
+            styles: getSubMenuItemStyles('icon') // Keep other icon styles
           })}
 
           {/* Sub Menu Prefix */}
@@ -391,7 +378,6 @@ const SubMenu: ForwardRefRenderFunction<HTMLLIElement, SubMenuProps> = (props, r
           <StyledMenuLabel
             className={menuClasses.label}
             rootStyles={getSubMenuItemStyles('label')}
-            style={label === 'ระบบแจกวาป' ? { color: 'var(--mui-palette-primary-main)' } : {}}
             textTruncate={textTruncate}
           >
             {label}

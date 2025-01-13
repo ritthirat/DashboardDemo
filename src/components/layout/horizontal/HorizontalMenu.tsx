@@ -83,8 +83,30 @@ const HorizontalMenu = () => {
         <MenuItem href='/' icon={<i className='tabler-smart-home' />}>
           Home
         </MenuItem>
-        <MenuItem href='/about' icon={<i className='tabler-info-circle' />}>
-          About
+        <MenuItem href='/dashboard' icon={<i className='tabler-info-circle' />}>
+          Dashboard
+        </MenuItem>
+        <MenuItem
+          href='/statistics'
+          icon={<i className='tabler-info-circle' />}
+          style={{
+            border: '1px solid var(--mui-palette-primary-main)',
+            borderRadius: 'var(--border-radius)',
+            borderColor: 'var(--mui-palette-divider)',
+            backgroundColor: 'transparent',
+            '&:hover': {
+              borderColor: 'var(--mui-palette-primary-main)',
+              backgroundColor: 'transparent'
+            },
+            '&:focus-visible': {
+              borderColor: 'var(--mui-palette-action-focus)'
+            },
+            '& .tabler-info-circle': {
+              color: 'var(--mui-palette-text-secondary)'
+            }
+          }}
+        >
+          statistics
         </MenuItem>
       </Menu> */}
       <Menu

@@ -1,6 +1,7 @@
 'use client'
 
 // React Imports
+import { useState } from 'react'
 
 // MUI Imports
 import Grid from '@mui/material/Grid'
@@ -17,10 +18,12 @@ import TableCell from '@mui/material/TableCell'
 import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
-import { Button } from '@mui/material'
+import { Button, Menu, MenuItem } from '@mui/material'
 
 // Recharts Imports
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
+
+import { DatePicker } from '@mui/x-date-pickers'
 
 // Mock Data Import
 import {
@@ -45,21 +48,71 @@ const chartData = Array(12)
   }))
 
 const Dashboard = () => {
+  const [report, setReport] = useState('วันนี้')
+
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
+  const open = Boolean(anchorEl)
+
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget)
+  }
+
+  const handleClose = () => {
+    setAnchorEl(null)
+  }
+
+  const reportChange = (value: string) => {
+    setReport(value)
+    setAnchorEl(null)
+  }
+
+  const reportData = [
+    { value: 'วันนี้', label: 'วันนี้' },
+    { value: '7 วันล่าสุด', label: '7 วันล่าสุด' },
+    { value: '30 วันล่าสุด', label: '30 วันล่าสุด' },
+    { value: 'กำหนดเอง', label: 'กำหนดเอง' }
+  ]
+
   return (
     <Grid container spacing={6}>
       <Grid item xs={12} className='flex justify-end gap-2'>
-        <Button variant='outlined'>
-          <Typography variant='h5'>1 วันล่าสุด</Typography>
-        </Button>
-        <Button variant='outlined'>
-          <Typography variant='h5'>7 วันล่าสุด</Typography>
-        </Button>
-        <Button variant='outlined'>
-          <Typography variant='h5'>30 วันล่าสุด </Typography>
-        </Button>
-        <Button variant='outlined'>
-          <Typography variant='h5'>กำหนดเอง </Typography>
-        </Button>
+        {report === 'กำหนดเอง' ? (
+          <div className='flex items-center gap-2'>
+            <DatePicker label='เริ่มต้น' />
+            <div className='flex items-center justify-center'> - </div>
+            <DatePicker label='สิ้นสุด' />
+          </div>
+        ) : (
+          ''
+        )}
+        <div className='flex items-center gap-2 m-3'>
+          <Button
+            className='w-1/3 md:w-[150px]  '
+            variant='contained'
+            id='basic-button'
+            aria-controls={open ? 'basic-menu' : undefined}
+            aria-haspopup='true'
+            aria-expanded={open ? 'true' : undefined}
+            onClick={handleClick}
+          >
+            {report}
+          </Button>
+        </div>
+        <Menu
+          id='basic-menu'
+          anchorEl={anchorEl}
+          open={open}
+          onClose={handleClose}
+          MenuListProps={{
+            'aria-labelledby': 'basic-button'
+          }}
+        >
+          {reportData.map(item => (
+            <MenuItem key={item.value} onClick={() => reportChange(item.label)}>
+              {item.label}
+            </MenuItem>
+          ))}
+        </Menu>
       </Grid>
 
       {/* Statistics Cards */}

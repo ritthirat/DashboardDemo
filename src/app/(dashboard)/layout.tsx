@@ -25,6 +25,7 @@ import ReduxProvider from '@core/components/redux/reduxprovi'
 // Util Imports
 import { getMode, getSystemMode } from '@core/utils/serverHelpers'
 import ClientWrapper from '@/components/ClientWrapper'
+import DateTimeProvider from '@/@core/components/DateTime/datetime'
 
 const Layout = async ({ children }: ChildrenType) => {
   // Vars
@@ -35,26 +36,28 @@ const Layout = async ({ children }: ChildrenType) => {
   return (
     <Providers direction={direction}>
       <ReduxProvider>
-        <ClientWrapper>
-          <LayoutWrapper
-            systemMode={systemMode}
-            verticalLayout={
-              <VerticalLayout
-                navigation={<Navigation mode={mode} systemMode={systemMode} />}
-                navbar={<Navbar />}
-                footer={<VerticalFooter />}
-              >
-                {children}
-              </VerticalLayout>
-            }
-            horizontalLayout={
-              <HorizontalLayout header={<Header />} footer={<HorizontalFooter />}>
-                {children}
-              </HorizontalLayout>
-            }
-          />
-          <ToastContainer />
-        </ClientWrapper>
+        <DateTimeProvider>
+          <ClientWrapper>
+            <LayoutWrapper
+              systemMode={systemMode}
+              verticalLayout={
+                <VerticalLayout
+                  navigation={<Navigation mode={mode} systemMode={systemMode} />}
+                  navbar={<Navbar />}
+                  footer={<VerticalFooter />}
+                >
+                  {children}
+                </VerticalLayout>
+              }
+              horizontalLayout={
+                <HorizontalLayout header={<Header />} footer={<HorizontalFooter />}>
+                  {children}
+                </HorizontalLayout>
+              }
+            />
+            <ToastContainer />
+          </ClientWrapper>
+        </DateTimeProvider>
       </ReduxProvider>
       <ScrollToTop className='mui-fixed'>
         <Button variant='contained' className='is-10 bs-10 rounded-full p-0 min-is-0 flex items-center justify-center'>

@@ -5,47 +5,38 @@ import { useState } from 'react'
 
 // MUI Imports
 import Grid from '@mui/material/Grid'
-import Card from '@mui/material/Card'
-import CardHeader from '@mui/material/CardHeader'
-import CardContent from '@mui/material/CardContent'
-import Typography from '@mui/material/Typography'
-import Avatar from '@mui/material/Avatar'
-import LinearProgress from '@mui/material/LinearProgress'
-import Chip from '@mui/material/Chip'
-import Table from '@mui/material/Table'
-import TableBody from '@mui/material/TableBody'
-import TableCell from '@mui/material/TableCell'
-import TableContainer from '@mui/material/TableContainer'
-import TableHead from '@mui/material/TableHead'
-import TableRow from '@mui/material/TableRow'
-import { Button, Menu, MenuItem } from '@mui/material'
 
-// Recharts Imports
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
+import { Button, Menu, MenuItem } from '@mui/material'
 
 import { DatePicker } from '@mui/x-date-pickers'
 
+import type { ApexOptions } from 'apexcharts'
+
 // Mock Data Import
-import {
-  statCards,
-  revenueData,
-  recentTransactions,
-  projects,
-  recentActivity,
-  tipData
-} from '@/data/mock/dashboardData'
 
 // Import icons CSS
 import '@/assets/iconify-icons/generated-icons.css'
+import VehicleOverview from '@/components/charts/VehicleOverview'
+
+import TotalEarning from '@/components/charts/TotalEarning'
+
+import CardStatsLineAreaCharts from '@/components/statistics/CardStatsLineAreaCharts'
+import type { CustomAvatarProps } from '@/@core/components/mui/Avatar'
+
+import type { ThemeColor } from '@/@core/types'
+import ApexLineChart from '@/components/apex/ApexLineChart'
 
 // Prepare chart data
-const chartData = Array(12)
-  .fill(0)
-  .map((_, index) => ({
-    name: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][index],
-    revenue: revenueData.series[0].data[index],
-    profit: revenueData.series[1].data[index]
-  }))
+interface statsWithAreaChartProps {
+  stats: string
+  title: string
+  chartColor?: ThemeColor
+  chartSeries: ApexOptions['series']
+  avatarIcon: string
+  avatarSize?: number
+  avatarColor?: ThemeColor
+  avatarSkin?: CustomAvatarProps['skin']
+}
 
 const Dashboard = () => {
   const [report, setReport] = useState('วันนี้')
@@ -71,6 +62,49 @@ const Dashboard = () => {
     { value: '7 วันล่าสุด', label: '7 วันล่าสุด' },
     { value: '30 วันล่าสุด', label: '30 วันล่าสุด' },
     { value: 'กำหนดเอง', label: 'กำหนดเอง' }
+  ]
+
+  const statsWithAreaChart: statsWithAreaChartProps[] = [
+    {
+      title: 'รายได้ร้าน',
+      stats: '92.6 บาท',
+      chartColor: 'primary',
+      avatarSize: 42,
+      avatarColor: 'primary',
+      avatarIcon: 'tabler-users',
+      avatarSkin: 'light',
+      chartSeries: [{ data: [40, 4, 58, 12, 35, 10, 84] }]
+    },
+    {
+      title: 'ยอดขายต่ำสุด',
+      stats: '36.5 บาท',
+      avatarSize: 42,
+      avatarColor: 'error',
+      avatarIcon: 'tabler-shopping-cart',
+      avatarSkin: 'light',
+      chartColor: 'error',
+      chartSeries: [{ data: [44, 75, 24, 57, 6, 84] }]
+    },
+    {
+      title: 'ยอดขายสูงสุด',
+      stats: '97.5 บาท',
+      avatarSize: 42,
+      avatarColor: 'warning',
+      avatarIcon: 'tabler-box',
+      avatarSkin: 'light',
+      chartColor: 'warning',
+      chartSeries: [{ data: [30, 84, 11, 76, 0, 49, 9] }]
+    },
+    {
+      title: 'รายการ',
+      stats: '91.8 บาท',
+      avatarSize: 42,
+      avatarColor: 'success',
+      avatarIcon: 'tabler-credit-card',
+      avatarSkin: 'light',
+      chartColor: 'success',
+      chartSeries: [{ data: [6, 35, 25, 61, 32, 84, 70] }]
+    }
   ]
 
   return (
@@ -113,8 +147,21 @@ const Dashboard = () => {
         </Menu>
       </Grid>
 
+      <Grid item xs={12} sm={12} md={12}>
+        <CardStatsLineAreaCharts data={statsWithAreaChart} />
+      </Grid>
+
+      <Grid item xs={12} sm={6} md={6}>
+        <VehicleOverview />
+      </Grid>
+      <Grid item xs={12} sm={6} md={6}>
+        <TotalEarning />
+      </Grid>
+      <Grid item xs={12} sm={12} md={12}>
+        <ApexLineChart />
+      </Grid>
       {/* Statistics Cards */}
-      <Grid item xs={12} sm={6} md={3}>
+      {/* <Grid item xs={12} sm={6} md={3}>
         <Card>
           <CardContent>
             <div className='flex'>
@@ -135,9 +182,9 @@ const Dashboard = () => {
             </div>
           </CardContent>
         </Card>
-      </Grid>
+      </Grid> */}
 
-      <Grid item xs={12} sm={8} md={9}>
+      {/* <Grid item xs={12} sm={8} md={9}>
         <Card>
           <CardHeader title='ภาพรวมการขาย' />
           <CardContent className='flex justify-between mb-5 flex-wrap'>
@@ -160,11 +207,11 @@ const Dashboard = () => {
             ))}
           </CardContent>
         </Card>
-      </Grid>
+      </Grid> */}
 
-      <Grid item xs={12} sm={6} md={6}>
+      {/* <Grid item xs={12} sm={6} md={6}>
         <div className='flex flex-wrap gap-4'>
-          {/* Card 1 */}
+
           {tipData.map((tip, index) => (
             <Card key={index} className='w-full lg:w-[calc(50%-0.5rem)] '>
               <CardHeader
@@ -188,13 +235,13 @@ const Dashboard = () => {
             </Card>
           ))}
         </div>
-      </Grid>
-
+      </Grid> */}
+      {/*
       <Grid item xs={12} sm={6} md={6}>
         <Card>
           <CardHeader title='ยอดขายตามประเภทการชำระเงิน' />
           <CardContent>
-            {/* PromptPay Section */}
+
             <div className='flex justify-between items-center text-lg mb-2 '>
               <Typography variant='h6'>PromptPay ( พร้อมเพลย์ )</Typography>
               <span className='bg-green-500 text-white px-2 rounded'>9999999 บาท</span>
@@ -204,7 +251,7 @@ const Dashboard = () => {
               <span className='px-2 rounded'>99%</span>
             </div>
             <LinearProgress variant='determinate' value={99} className='h-4 rounded-md' color='primary' />
-            {/* TrueMoney Section */}
+
             <div className='flex justify-between items-center text-lg mb-2 mt-4'>
               <Typography variant='h6'>TrueMoney Wallet ( ทรูมันนี่วอเลท )</Typography>
               <span className='bg-green-500 text-white px-2 rounded'>99 บาท</span>
@@ -214,19 +261,19 @@ const Dashboard = () => {
               <span className='px-2 rounded'>1%</span>
             </div>
             <LinearProgress variant='determinate' value={2} className='h-4 rounded-md' color='error' />
-            {/* Divider */}
+
             <div className='border-t border-gray-300 my-4'></div>
-            {/* Summary Section */}
+
             <div className='flex justify-between items-center text-lg mt-4 mb-3'>
               <Typography variant='h5'>รวมทั้งหมด</Typography>
               <Typography variant='h5'>999999 บาท</Typography>
             </div>
           </CardContent>
         </Card>
-      </Grid>
+      </Grid> */}
 
       {/* Revenue Chart */}
-      <Grid item xs={12} md={12}>
+      {/* <Grid item xs={12} md={12}>
         <Card>
           <CardHeader
             title='ยอดขาย'
@@ -266,10 +313,10 @@ const Dashboard = () => {
             </div>
           </CardContent>
         </Card>
-      </Grid>
+      </Grid> */}
 
       {/* Recent Activity */}
-      <Grid item xs={12} md={4}>
+      {/* <Grid item xs={12} md={4}>
         <Card>
           <CardHeader title='Recent Activity' />
           <CardContent>
@@ -291,10 +338,10 @@ const Dashboard = () => {
             ))}
           </CardContent>
         </Card>
-      </Grid>
+      </Grid> */}
 
       {/* Recent Transactions */}
-      <Grid item xs={12} md={6}>
+      {/* <Grid item xs={12} md={6}>
         <Card>
           <CardHeader title='Recent Transactions' />
           <TableContainer>
@@ -351,10 +398,10 @@ const Dashboard = () => {
             </Table>
           </TableContainer>
         </Card>
-      </Grid>
+      </Grid> */}
 
       {/* Active Projects */}
-      <Grid item xs={12} md={6}>
+      {/* <Grid item xs={12} md={6}>
         <Card>
           <CardHeader title='Active Projects' />
           <CardContent>
@@ -397,7 +444,7 @@ const Dashboard = () => {
             ))}
           </CardContent>
         </Card>
-      </Grid>
+      </Grid> */}
     </Grid>
   )
 }

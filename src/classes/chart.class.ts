@@ -1,8 +1,7 @@
 class ChartData {
   static generateCustomerByDay(data: any[]) {
     return data.map(item => ({
-      name: item.day,
-      total: item.total
+      data: item.total
     }))
   }
 

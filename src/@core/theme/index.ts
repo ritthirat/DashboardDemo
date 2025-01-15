@@ -1,5 +1,5 @@
 // Next Imports
-import { Mitr } from 'next/font/google'
+import { Noto_Sans_Thai } from 'next/font/google'
 
 // MUI Imports
 import type { Theme } from '@mui/material/styles'
@@ -16,7 +16,7 @@ import shadows from './shadows'
 import customShadows from './customShadows'
 import typography from './typography'
 
-const mitr = Mitr({
+const font = Noto_Sans_Thai({
   subsets: ['latin'],
   weight: ['200', '300', '400', '500', '600', '700']
 })
@@ -38,7 +38,7 @@ const theme = (settings: Settings, mode: SystemMode, direction: Theme['direction
       }
     },
     shadows: shadows(mode),
-    typography: typography(mitr.style.fontFamily),
+    typography: typography(font.style.fontFamily),
     customShadows: customShadows(mode),
     mainColorChannels: {
       light: '47 43 61',

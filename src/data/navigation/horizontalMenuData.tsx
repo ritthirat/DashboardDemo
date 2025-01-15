@@ -3,14 +3,14 @@ import type { HorizontalMenuDataType } from '@/types/menuTypes'
 
 const horizontalMenuData = (): HorizontalMenuDataType[] => [
   {
-    label: 'ระบบแจกวาป',
-    children: [{ label: 'ระบบแจกวาป', href: '/home' }],
-    icon: 'tabler-message-2-heart'
+    label: 'ระบบโฆษณา',
+    children: [{ label: 'แดชบอร์ด', href: '/', icon: 'tabler-chart-pie-2' }],
+    icon: 'tabler-ad'
   },
   {
-    label: 'แดชบอร์ด',
-    href: '/dashboard',
-    icon: 'tabler-chart-pie-2'
+    label: 'ระบบแจกวาป',
+    children: [{ label: 'แดชบอร์ด', href: '/dashboard', icon: 'tabler-chart-pie-2' }],
+    icon: 'tabler-message-2-heart'
   },
   {
     label: 'สถิติ',

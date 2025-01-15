@@ -140,7 +140,7 @@ const Dashboard = () => {
   return (
     <Grid container spacing={6}>
       <Grid item xs={12} className='flex justify-end gap-2 '>
-        <div className='flex flex-col gap-2 md:flex-row items-center'>
+        <div className='flex  gap-2 md:flex-row items-center justify-end'>
           <div className='flex items-center gap-2'>
             <AppReactDatepicker
               selectsRange
@@ -154,9 +154,9 @@ const Dashboard = () => {
               customInput={<CustomInput label='' start={startDate as Date | number} end={endDate as Date | number} />}
             />
           </div>
-          <div className='flex items-center gap-2 m-0 md:m-3 justify-end'>
+          <div className='flex  gap-2 m-0 md:m-3 justify-end '>
             <Button
-              className='w-1/3 md:w-[150px]  '
+              className=' md:w-[150px] items-end  '
               variant='contained'
               id='basic-button'
               aria-controls={open ? 'basic-menu' : undefined}

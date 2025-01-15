@@ -1,3 +1,4 @@
+'use client'
 import { Button, Card, CardContent, CardHeader, Typography } from '@mui/material'
 
 import DynamicTable from '@/components/table/DyamicTable'
@@ -35,11 +36,11 @@ const ScreenSetting = () => {
     },
     {
       id: 'action' as keyof Props,
-      label: 'จัดการ',
+      label: '',
       align: 'center' as const,
       sx: { width: 500 },
       render: () => (
-        <div className='flex  gap-2 justify-center text-nowrap'>
+        <div className='flex  gap-2 justify-end text-nowrap'>
           <Button
             startIcon={<i className='tabler-pencil' />}
             variant='outlined'

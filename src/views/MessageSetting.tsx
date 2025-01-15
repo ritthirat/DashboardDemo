@@ -53,15 +53,28 @@ const MessageSetting = () => {
     },
     {
       id: 'actions' as keyof SettingData,
-      label: 'จัดการ',
+      label: '',
       align: 'center' as const,
       sx: { width: '250px' },
       render: () => (
-        <div className='flex justify-center gap-2'>
-          <Button variant='outlined' size='small' color='info' className='rounded-xl'>
+        <div className='flex justify-end gap-2'>
+          <Button
+            startIcon={<i className='tabler-pencil' />}
+            variant='outlined'
+            size='small'
+            color='info'
+            className='rounded-xl'
+            onClick={toggleModal}
+          >
             แก้ไข
           </Button>
-          <Button variant='outlined' size='small' className='rounded-xl' color='error'>
+          <Button
+            startIcon={<i className='tabler-trash' />}
+            variant='outlined'
+            size='small'
+            className='rounded-xl'
+            color='error'
+          >
             ลบ
           </Button>
         </div>

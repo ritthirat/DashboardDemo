@@ -52,10 +52,10 @@ const DynamicModal = ({ isOpen, title, toggleModal, children, onSubmit }: Dynami
           {children}
 
           <div className='flex gap-2 w-full mt-10'>
-            <Button variant='contained' size='small' className='rounded-xl w-full' onClick={onSubmit} color='primary'>
+            <Button variant='contained' className='rounded-xl w-full' onClick={onSubmit} color='primary'>
               บันทึก
             </Button>
-            <Button variant='outlined' size='small' className='rounded-xl w-full' onClick={toggleModal}>
+            <Button variant='outlined' className='rounded-xl w-full' onClick={toggleModal}>
               ยกเลิก
             </Button>
           </div>

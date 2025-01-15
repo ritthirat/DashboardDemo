@@ -19,6 +19,11 @@ const MessageModal = ({ isOpen, toggleModal }: Props) => {
     setActiveCategory(category)
   }
 
+  const [catagory, setCatagory] = useState('')
+  const [addmessage, setAddMessage] = useState('')
+
+  console.log(addmessage)
+
   return (
     <DynamicModal isOpen={isOpen} toggleModal={toggleModal} title='เพิ่มข้อมความ' onSubmit={() => {}}>
       <Grid container spacing={2}>
@@ -28,7 +33,7 @@ const MessageModal = ({ isOpen, toggleModal }: Props) => {
             <CustomTextField fullWidth placeholder='รายละเอียด' />
           </div>
         </Grid>
-        <Grid item xs={12} md={4} lg={4} className='my-4 '>
+        <Grid item xs={12} md={4} lg={4} className=' '>
           <Typography variant='h5'>หมวดหมู่ข้อความ</Typography>
 
           <Card>
@@ -50,10 +55,15 @@ const MessageModal = ({ isOpen, toggleModal }: Props) => {
           </Card>
         </Grid>
         <Grid item xs={12} md={8} lg={8}>
-          <div className='flex'>
-            <CustomTextField fullWidth placeholder='เพิ่มหมวดหมู่' />
+          <div className='flex gap-2'>
+            <CustomTextField
+              value={catagory}
+              fullWidth
+              placeholder='เพิ่มหมวดหมู่'
+              onChange={e => setCatagory(e.target.value)}
+            />
 
-            <Button variant='contained' className=''>
+            <Button disabled={catagory ? false : true} variant='contained' className=''>
               บันทึก
             </Button>
           </div>
@@ -75,10 +85,15 @@ const MessageModal = ({ isOpen, toggleModal }: Props) => {
           <Typography variant='h6' className='mt-4'>
             เพิ่มข้อความใหม่
           </Typography>
-          <div className='flex'>
-            <CustomTextField autoFocus fullWidth placeholder='เพิ่มข้อความ' />
+          <div className='flex gap-2'>
+            <CustomTextField
+              autoFocus
+              fullWidth
+              placeholder='เพิ่มข้อความ'
+              onChange={e => setAddMessage(e.target.value)}
+            />
 
-            <Button variant='contained' className='text-nowrap' color='primary'>
+            <Button variant='contained' className='text-nowrap' color='primary' disabled={addmessage ? false : true}>
               เพิ่มข้อความ
             </Button>
           </div>

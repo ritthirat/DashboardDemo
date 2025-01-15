@@ -49,7 +49,7 @@ const TextFieldStyled = styled(TextField)<TextFieldProps>(({ theme }) => ({
         transform: 'translateX(4px)'
       },
       '& :not(textarea).MuiFilledInput-input': {
-        padding: '6px 14px'
+        padding: '5px 13px'
       },
       '&:not(.Mui-error).MuiInputBase-colorPrimary': {
         borderColor: 'var(--mui-palette-primary-main)',

@@ -20,6 +20,7 @@ const History = () => {
   const columns = [
     {
       id: 'date' as keyof HistoryList,
+      header: 'วันที่',
       label: 'วันที่',
       render: (data: HistoryList) => <Typography variant='body2'>{formattedDate(data.date)}</Typography>
     },
@@ -28,11 +29,17 @@ const History = () => {
       label: 'สถานะ',
       align: 'center' as const,
       render: (data: HistoryList) => (
-        <Chip
-          size='small'
-          label={data.status}
-          color={data.status === 'success' ? 'success' : data.status === 'pending' ? 'warning' : 'error'}
-        />
+        <div className=' flex flex-col items-center'>
+          <Chip
+            size='small'
+            label={data.status}
+            className='rounded-2xl'
+            color={data.status === 'success' ? 'success' : data.status === 'pending' ? 'warning' : 'error'}
+          />
+          <Typography className='text-xs' color={'gray'}>
+            {formattedDate(data.date)}
+          </Typography>
+        </div>
       )
     },
     {
@@ -43,18 +50,18 @@ const History = () => {
     },
     {
       id: 'actions' as keyof HistoryList,
-      label: 'จัดการ',
+      label: '',
       align: 'center' as const,
       sx: { width: '500px' },
       render: () => (
-        <div className='flex justify-center gap-2 text-nowrap'>
-          <Button variant='outlined' size='small' color='primary' onClick={toggleModal}>
+        <div className='flex justify-end gap-2 text-nowrap'>
+          <Button variant='outlined' size='small' color='primary' className='rounded-2xl' onClick={toggleModal}>
             ดูรายงาน
           </Button>
-          <Button variant='outlined' size='small' color='primary'>
+          <Button variant='outlined' size='small' color='success' className='rounded-2xl'>
             ดาวโหลดรายงาน
           </Button>
-          <Button variant='outlined' size='small' color='primary'>
+          <Button variant='outlined' size='small' color='info' className='rounded-2xl'>
             สลิปโอนเงิน
           </Button>
         </div>

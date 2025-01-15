@@ -1,14 +1,14 @@
 'use client'
 
 // React Imports
-import { useState } from 'react'
+import type { SyntheticEvent } from 'react'
+import { forwardRef, useState } from 'react'
 
 // MUI Imports
 import Grid from '@mui/material/Grid'
 
 import { Button, Menu, MenuItem } from '@mui/material'
-
-import { DatePicker } from '@mui/x-date-pickers'
+import type { TextFieldProps } from '@mui/material'
 
 import type { ApexOptions } from 'apexcharts'
 
@@ -16,6 +16,8 @@ import type { ApexOptions } from 'apexcharts'
 
 // Import icons CSS
 import '@/assets/iconify-icons/generated-icons.css'
+import { formatDate } from 'date-fns/format'
+
 import VehicleOverview from '@/components/charts/VehicleOverview'
 
 import TotalEarning from '@/components/charts/TotalEarning'
@@ -25,6 +27,8 @@ import type { CustomAvatarProps } from '@/@core/components/mui/Avatar'
 
 import type { ThemeColor } from '@/@core/types'
 import ApexLineChart from '@/components/apex/ApexLineChart'
+import CustomTextField from '@/@core/components/mui/TextField'
+import AppReactDatepicker from '@/libs/styles/AppReactDatepicker'
 
 // Prepare chart data
 interface statsWithAreaChartProps {
@@ -37,6 +41,21 @@ interface statsWithAreaChartProps {
   avatarColor?: ThemeColor
   avatarSkin?: CustomAvatarProps['skin']
 }
+
+type CustomInputProps = TextFieldProps & {
+  label?: string
+  end: Date | number
+  start: Date | number
+}
+
+const CustomInput = forwardRef((props: CustomInputProps, ref) => {
+  // Vars
+  const startDate = props.start !== null ? formatDate(props.start, 'MM/dd/yyyy') : ''
+  const endDate = props.end !== null ? ` - ${formatDate(props.end, 'MM/dd/yyyy')}` : null
+  const value = `${startDate}${endDate !== null ? endDate : ''}`
+
+  return <CustomTextField fullWidth inputRef={ref} label={props.label || ''} {...props} value={value} />
+})
 
 const Dashboard = () => {
   const [report, setReport] = useState('วันนี้')
@@ -107,14 +126,33 @@ const Dashboard = () => {
     }
   ]
 
+  const [startDate, setStartDate] = useState<Date | undefined | null>(null)
+  const [endDate, setEndDate] = useState<Date | undefined | null>(null)
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const handleDateChange = (dates: [Date | null, Date | null], event: SyntheticEvent<any, Event> | undefined) => {
+    const [start, end] = dates
+
+    setStartDate(start)
+    setEndDate(end)
+  }
+
   return (
     <Grid container spacing={6}>
       <Grid item xs={12} className='flex justify-end gap-2 '>
-        <div className='flex flex-col gap-2 md:flex-row'>
+        <div className='flex flex-col gap-2 md:flex-row items-center'>
           <div className='flex items-center gap-2'>
-            <DatePicker label='เริ่มต้น' />
-            <div className='flex items-center justify-center'> - </div>
-            <DatePicker label='สิ้นสุด' />
+            <AppReactDatepicker
+              selectsRange
+              endDate={endDate as Date}
+              selected={startDate}
+              startDate={startDate as Date}
+              id='date-range-picker'
+              onChange={handleDateChange}
+              shouldCloseOnSelect={false}
+              placeholderText='เลือกระยะเวลา'
+              customInput={<CustomInput label='' start={startDate as Date | number} end={endDate as Date | number} />}
+            />
           </div>
           <div className='flex items-center gap-2 m-0 md:m-3 justify-end'>
             <Button

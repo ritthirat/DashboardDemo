@@ -35,8 +35,8 @@
 }
 
 .side-modal.smallScreen {
-  inline-size: 375px;
-  inset-inline-end: -375px;
+  inline-size: 100%;
+  inset-inline-end: -100%;
 }
 
 .side-modal.smallScreen.show .toggler {

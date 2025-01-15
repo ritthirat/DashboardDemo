@@ -109,15 +109,23 @@ const DonateSetting = () => {
     },
     {
       id: 'actions' as keyof ProductList[number],
-      label: 'จัดการ',
+      label: '',
       align: 'center' as const,
       sx: { width: '250px' },
       render: data => (
-        <div className='flex justify-center gap-2'>
-          <Button variant='outlined' size='small' color='info' className='rounded-xl' onClick={() => handleEdit(data)}>
+        <div className='flex justify-end gap-2'>
+          <Button
+            startIcon={<i className='tabler-pencil' />}
+            variant='outlined'
+            size='small'
+            color='info'
+            className='rounded-xl'
+            onClick={() => handleEdit(data)}
+          >
             แก้ไข
           </Button>
           <Button
+            startIcon={<i className='tabler-trash' />}
             variant='outlined'
             size='small'
             className='rounded-xl'

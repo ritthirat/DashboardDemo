@@ -11,8 +11,8 @@ import '@/app/globals.css'
 import '@assets/iconify-icons/generated-icons.css'
 
 export const metadata = {
-  title: 'Urwarp',
-  description: 'Urwarp '
+  title: 'DashboardDemo',
+  description: 'DashboardDemo '
 }
 
 const RootLayout = ({ children }: ChildrenType) => {

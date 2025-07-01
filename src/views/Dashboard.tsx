@@ -81,7 +81,7 @@ const Dashboard = () => {
     { value: '7 วันล่าสุด', label: '7 วันล่าสุด' },
     { value: '30 วันล่าสุด', label: '30 วันล่าสุด' },
     { value: 'กำหนดเอง', label: 'กำหนดเอง' }
-  ]
+  ] 
 
   const statsWithAreaChart: statsWithAreaChartProps[] = [
     {

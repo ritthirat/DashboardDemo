@@ -37,7 +37,7 @@ const Layout = async ({ children }: ChildrenType) => {
     <Providers direction={direction}>
       <ReduxProvider>
         <DateTimeProvider>
-          <ClientWrapper>
+          {/* <ClientWrapper> */}
             <LayoutWrapper
               systemMode={systemMode}
               verticalLayout={
@@ -56,7 +56,7 @@ const Layout = async ({ children }: ChildrenType) => {
               }
             />
             <ToastContainer />
-          </ClientWrapper>
+          {/* </ClientWrapper> */}
         </DateTimeProvider>
       </ReduxProvider>
       <ScrollToTop className='mui-fixed'>

@@ -13,25 +13,25 @@ export default function ClientWrapper({ children }: { children: React.ReactNode 
   const dispatch = useDispatch()
   const [isClient, setIsClient] = useState(false)
 
-  useEffect(() => {
-    const fetchGetProfile = async (): Promise<ResponseData<ProfileData> | undefined> => {
-      try {
-        const response: ResponseData<ProfileData> = await getProfile(dispatch)
+  // useEffect(() => {
+  //   const fetchGetProfile = async (): Promise<ResponseData<ProfileData> | undefined> => {
+  //     try {
+  //       const response: ResponseData<ProfileData> = await getProfile(dispatch)
 
-        setIsClient(true)
+  //       setIsClient(true)
 
-        return response
-      } catch (error) {
-        console.log('error:', error)
-        setIsClient(false)
-        window.location.href = '/login'
+  //       return response
+  //     } catch (error) {
+  //       console.log('error:', error)
+  //       setIsClient(false)
+  //       window.location.href = '/login'
 
-        return undefined
-      }
-    }
+  //       return undefined
+  //     }
+  //   }
 
-    fetchGetProfile()
-  }, [dispatch])
+  //   fetchGetProfile()
+  // }, [dispatch])
 
-  return <>{isClient === true && children}</>
+  return <>{children}</>
 }

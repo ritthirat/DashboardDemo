@@ -53,7 +53,7 @@ export type Config = {
 }
 
 const themeConfig: Config = {
-  templateName: 'Urwarp',
+  templateName: 'DashboardDemo',
   homePageUrl: '/home',
   settingsCookieName: 'vuexy-mui-next-demo-1',
   mode: 'system', // 'system', 'light', 'dark'

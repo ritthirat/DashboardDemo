@@ -124,9 +124,11 @@ const VehicleOverview = () => {
           <div className='overflow-x-auto'>
             <table className={tableStyles.table}>
               <thead className='font-bold'>
+                <tr>
                 <th className='text-start  font-bold'>ประเภทรายการ</th>
                 <th className='text-end p-0 font-bold'>รายการ</th>
                 <th className='text-end p-0 font-bold'>รายได้</th>
+                </tr>
               </thead>
               <tbody>
                 {updatedData.map((item, index) => (

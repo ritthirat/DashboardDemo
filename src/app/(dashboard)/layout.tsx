@@ -24,7 +24,7 @@ import ReduxProvider from '@core/components/redux/reduxprovi'
 
 // Util Imports
 import { getMode, getSystemMode } from '@core/utils/serverHelpers'
-// import ClientWrapper from '@/components/ClientWrapper'
+
 import DateTimeProvider from '@/@core/components/DateTime/datetime'
 
 const Layout = async ({ children }: ChildrenType) => {
@@ -37,7 +37,6 @@ const Layout = async ({ children }: ChildrenType) => {
     <Providers direction={direction}>
       <ReduxProvider>
         <DateTimeProvider>
-          {/* <ClientWrapper> */}
             <LayoutWrapper
               systemMode={systemMode}
               verticalLayout={
@@ -56,7 +55,6 @@ const Layout = async ({ children }: ChildrenType) => {
               }
             />
             <ToastContainer />
-          {/* </ClientWrapper> */}
         </DateTimeProvider>
       </ReduxProvider>
       <ScrollToTop className='mui-fixed'>

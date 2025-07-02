@@ -1,37 +1,37 @@
-'use client'
+// 'use client'
 
-import { useEffect, useState } from 'react'
+// import { useEffect, useState } from 'react'
 
-import { useDispatch } from 'react-redux'
+// import { useDispatch } from 'react-redux'
 
-import type { ResponseData } from '@/plugins/type'
-import type { ProfileData } from '@/types/authType'
+// import type { ResponseData } from '@/plugins/type'
+// import type { ProfileData } from '@/types/authType'
 
-import { getProfile } from '@/store/actions/authAction'
+// import { getProfile } from '@/store/actions/authAction'
 
-export default function ClientWrapper({ children }: { children: React.ReactNode }) {
-  const dispatch = useDispatch()
-  const [isClient, setIsClient] = useState(false)
+// export default function ClientWrapper({ children }: { children: React.ReactNode }) {
+//   const dispatch = useDispatch()
+//   const [isClient, setIsClient] = useState(false)
 
-  // useEffect(() => {
-  //   const fetchGetProfile = async (): Promise<ResponseData<ProfileData> | undefined> => {
-  //     try {
-  //       const response: ResponseData<ProfileData> = await getProfile(dispatch)
+//   useEffect(() => {
+//     const fetchGetProfile = async (): Promise<ResponseData<ProfileData> | undefined> => {
+//       try {
+//         const response: ResponseData<ProfileData> = await getProfile(dispatch)
 
-  //       setIsClient(true)
+//         setIsClient(true)
 
-  //       return response
-  //     } catch (error) {
-  //       console.log('error:', error)
-  //       setIsClient(false)
-  //       window.location.href = '/login'
+//         return response
+//       } catch (error) {
+//         console.log('error:', error)
+//         setIsClient(false)
+//         window.location.href = '/login'
 
-  //       return undefined
-  //     }
-  //   }
+//         return undefined
+//       }
+//     }
 
-  //   fetchGetProfile()
-  // }, [dispatch])
+//     fetchGetProfile()
+//   }, [dispatch])
 
-  return <>{children}</>
-}
+//   return <>{children}</>
+// }
